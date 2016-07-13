@@ -4,20 +4,20 @@
 /*************************************************************
  *
  *  MathJax/extensions/TeX/mhchem.js
- *  
+ *
  *  Implements the \ce command for handling chemical formulas
  *  from the mhchem LaTeX package.
- *  
+ *
  *  ---------------------------------------------------------------------
- *  
+ *
  *  Copyright (c) 2011-2015 The MathJax Consortium
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,9 +30,9 @@ MathJax.Extension["TeX/mhchem"] = {
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
-  
+
   var TEX = MathJax.InputJax.TeX;
-  
+
   /*
    *  This is the main class for handing the \ce and related commands.
    *  Its main method is Parse() which takes the argument to \ce and
@@ -49,12 +49,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     sub: "",      // pending subscript
     presup: "",   // pending pre-superscript
     presub: "",   // pending pre-subscript
-    
+
     //
     //  Store the string when a CE object is created
     //
     Init: function (string) {this.string = string},
-    
+
     //
     //  These are the special characters and the methods that
     //  handle them.  All others are passed through verbatim.
@@ -90,7 +90,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       '^': "uparrow",
       'v': "downarrow"
     },
-    
+
     //
     //  Implementations for the various bonds
     //  (the ~ ones are hacks that don't work well in NativeMML)
@@ -115,7 +115,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //  This converts the CE string to a TeX string.
     //  It loops through the string and calls the proper
     //  method depending on the ccurrent character.
-    //  
+    //
     Parse: function () {
       this.tex = ""; this.atom = false;
       while (this.i < this.string.length) {
@@ -127,10 +127,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       this.FinishAtom(true);
       return this.TEX;
     },
-    
+
     //
     //  Make an atom name or a down arrow
-    //  
+    //
     ParseLetter: function () {
       this.FinishAtom();
       if (this.Match(/^v( |$)/)) {
@@ -140,11 +140,11 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         this.atom = true;
       }
     },
-    
+
     //
     //  Make a number or fraction preceeding an atom,
     //  or a subscript for an atom.
-    //  
+    //
     ParseNumber: function () {
       var n = this.Match(/^\d+/);
       if (this.atom && !this.sub) {
@@ -161,7 +161,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         }
       }
     },
-    
+
     //
     //  Make a superscript minus, or an arrow, or a single bond.
     //
@@ -183,7 +183,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       if (this.atom) {this.sup += c} else {this.FinishAtom(); this.tex += c}
       this.i++;
     },
-    
+
     //
     //  Handle dots and double or triple bonds
     //
@@ -216,7 +216,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 
     //
     //  Look for a superscript, or an up arrow
-    //  
+    //
     ParseSuperscript: function (c) {
       c = this.string.charAt(++this.i);
       if (c === "{") {
@@ -249,7 +249,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       this.FinishAtom();
       this.i++; this.tex += this.Find(c);
     },
-    
+
     //
     //  Look for specific macros for bonds
     //  and allow \} to have subscripts
@@ -269,12 +269,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       else if (match === "}") {this.tex += "\\}}"; this.atom = true}
       else {this.tex += c+match}
     },
-    
+
     //
     //  Ignore spaces
     //
     ParseSpace: function (c) {this.FinishAtom(); this.i++},
-    
+
     //
     //  Pass anything else on verbatim
     //
@@ -300,7 +300,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 
     //
     //  Handle the super and subscripts for an atom
-    //  
+    //
     FinishAtom: function (force) {
       if (this.sup || this.sub || this.presup || this.presub) {
         if (!force && !this.atom) {
@@ -331,7 +331,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       this.TEX += this.tex; this.tex = "";
       this.atom = false;
     },
-    
+
     //
     //  Find a bracket group and handle C and T prefixes
     //
@@ -355,7 +355,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       if (match) {match = match[0]; this.i += match.length}
       return match;
     },
-    
+
     //
     //  Find a particular character, skipping over braced groups
     //
@@ -375,13 +375,13 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       if (braces) {TEX.Error(["MissingCloseBrace","Missing close brace"])}
       TEX.Error(["NoClosingChar","Can't find closing %1",c]);
     }
-    
+
   });
-  
+
   MathJax.Extension["TeX/mhchem"].CE = CE;
-  
+
   /***************************************************************************/
-  
+
   TEX.Definitions.Add({
     macros: {
       //
@@ -390,7 +390,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       ce:   'CE',
       cf:   'CE',
       cee:  'CE',
-      
+
       //
       //  Make these load AMSmath package (redefined below when loaded)
       //
@@ -406,9 +406,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 
       //
       //  Add \hyphen used in some mhchem examples
-      //  
+      //
       hyphen: ["Macro","\\text{-}"],
-      
+
       //
       //  Handle prescripts and none
       //
@@ -420,7 +420,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       //
       tripledash: ["Macro","\\raise3mu{\\tiny\\text{-}\\kern2mu\\text{-}\\kern2mu\\text{-}}"]
     },
-    
+
     //
     //  Needed for \bond for the ~ forms
     //
@@ -428,7 +428,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       CEstack:       ['Array',null,null,null,'r',null,"0.001em",'T',1]
     }
   },null,true);
-  
+
   if (!MathJax.Extension["TeX/AMSmath"]) {
     TEX.Definitions.Add({
       macros: {
@@ -437,7 +437,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       }
     },null,true);
   }
-  
+
   //
   //  These arrows need to wait until AMSmath is loaded
   //
@@ -465,7 +465,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       var tex = CE(arg).Parse();
       this.string = tex + this.string.substr(this.i); this.i = 0;
     },
-    
+
     //
     //  Implements \CEprescripts{presub}{presup}{base}{sub}{sup}
     //
@@ -481,9 +481,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     CEnone: function (name) {
       this.Push(MathJax.ElementJax.mml.none());
     }
-    
+
   });
-  
+
   //
   //  Indicate that the extension is ready
   //
