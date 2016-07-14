@@ -7,7 +7,10 @@ mhchem is a 3rd-party extension to MathJax for typesetting chemical equations.
 
     \ce{CO2 + C -> 2 CO}
 
-[The manual (including a live test drive)](https://mhchem.github.io/Mathjax-mhchem/)
+
+## Manual
+
+[The manual (including a live test drive)](https://mhchem.github.io/MathJax-mhchem/)
 
 
 ## Using the MathJax CDN
