@@ -26,6 +26,12 @@
  *  limitations under the License.
  */
 
+//
+// Coding Style
+//   - use '' for identifiers that can by minified/uglified
+//   - use "" for strings that need to stay untouched
+
+
 MathJax.Extension["TeX/mhchem"] = {
   version: "3.0.0"
 };
@@ -34,11 +40,11 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 
   var TEX = MathJax.InputJax.TeX;
 
-  /*
-   *  This is the main class for handing the \ce and related commands.
-   *  Its main method is Parse() which takes the argument to \ce and
-   *  returns the corresponding TeX string.
-   */
+  //
+  //  This is the main class for handing the \ce and related commands.
+  //  Its main method is Parse() which takes the argument to \ce and
+  //  returns the corresponding TeX string.
+  //
 
   var CE = MathJax.Object.Subclass({
     string: "",   // the \ce string being parsed
@@ -1536,16 +1542,16 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       //
       //  Set up the macros for chemistry
       //
-      ce:   'CE',
-      pu:   'PU',
+      ce:   "CE",
+      pu:   "PU",
 
       //
       //  Make these load AMSmath package (redefined below when loaded)
       //
-      xleftrightarrow:    ['Extension','AMSmath'],
-      xrightleftharpoons: ['Extension','AMSmath'],
-      xRightleftharpoons: ['Extension','AMSmath'],
-      xLeftrightharpoons: ['Extension','AMSmath'],
+      xleftrightarrow:    ["Extension","AMSmath"],
+      xrightleftharpoons: ["Extension","AMSmath"],
+      xRightleftharpoons: ["Extension","AMSmath"],
+      xLeftrightharpoons: ["Extension","AMSmath"],
 
       //  FIXME:  These don't work well in FF NativeMML mode
       longrightleftharpoons: ["Macro","\\stackrel{\\textstyle{{-}\\!\\!{\\rightharpoonup}}}{\\smash{{\\leftharpoondown}\\!\\!{-}}}"],
@@ -1563,15 +1569,15 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //  Needed for \bond for the ~ forms
     //
     environment: {
-      CEstack:       ['Array',null,null,null,'r',null,"0.001em",'T',1]
+      CEstack:       ["Array",null,null,null,"r",null,"0.001em","T",1]
     }
   },null,true);
 
   if (!MathJax.Extension["TeX/AMSmath"]) {
     TEX.Definitions.Add({
       macros: {
-        xrightarrow: ['Extension','AMSmath'],
-        xleftarrow:  ['Extension','AMSmath']
+        xrightarrow: ["Extension","AMSmath"],
+        xleftarrow:  ["Extension","AMSmath"]
       }
     },null,true);
   }
@@ -1585,10 +1591,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         //
         //  Some of these are hacks for now
         //
-        xleftrightarrow:    ['xArrow',0x2194,6,6],
-        xrightleftharpoons: ['xArrow',0x21CC,5,7],  // FIXME:  doesn't stretch in HTML-CSS output
-        xRightleftharpoons: ['xArrow',0x21CC,5,7],  // FIXME:  how should this be handled?
-        xLeftrightharpoons: ['xArrow',0x21CC,5,7]
+        xleftrightarrow:    ["xArrow",0x2194,6,6],
+        xrightleftharpoons: ["xArrow",0x21CC,5,7],  // FIXME:  doesn't stretch in HTML-CSS output
+        xRightleftharpoons: ["xArrow",0x21CC,5,7],  // FIXME:  how should this be handled?
+        xLeftrightharpoons: ["xArrow",0x21CC,5,7]
       }
     },null,true);
   });
