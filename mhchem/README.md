@@ -15,7 +15,7 @@ mhchem is a 3rd-party extension to MathJax for typesetting chemical equations.
 
 ## Using the MathJax CDN
 
-The easiest way to use mhchem 3.0.0 is to wait a few weeks for MathJax 2.7.0 and then follow the---then updated---instructions at the [official MathJax Documentation](http://docs.mathjax.org/en/latest/tex.html#mhchem)
+The easiest way to use mhchem 3.0.1 is to wait a few weeks for MathJax 2.7.0 and then follow the—then updated—instructions at the [official MathJax Documentation](http://docs.mathjax.org/en/latest/tex.html#mhchem)
 
 
 ## Changes (when compared to 2.6.0)
