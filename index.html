@@ -59,7 +59,7 @@
 
 # MathJax/mhchem Syntax
 
-This is the manual for the input syntax of mhchem 3.0.0. mhchem is a third-party extension for MathJax. For how to load it and make the `\ce` command available, see the [official MathJax docs](http://docs.mathjax.org/en/latest/tex.html#mhchem) (pending publication of MathJax 2.7.0).
+This is the manual for the input syntax of mhchem 3.0.1. mhchem is a third-party extension for MathJax. For how to load it and make the `\ce` command available, see the [official MathJax docs](http://docs.mathjax.org/en/latest/tex.html#mhchem) (pending publication of MathJax 2.7.0).
 
 ## Chemical Equations (ce)
 :::: CO2 + C -> 2 CO
@@ -129,9 +129,12 @@ If a more complex term is not properly recognized, you can switch to math mode (
 italics) explicitly.
 
 ## Greek Characters
-Just write \alpha etc. Typographical conventions say that variables are typeset in italic font, while other entities (like chemical elements) are typeset in an upright font. Here, the Greek character is *not* a variable that stands for a number, therefore an upright font *should* used. Unfortunately, MathJax does not support upright lower-case Greek characters.
+Just write \alpha etc. Typographical conventions say that variables are typeset in italic font, while other entities (like chemical elements) are typeset in an upright font. In the following examples, the Greek character is *not* a variable that stands for a number, therefore an upright font *should* used. Unfortunately, MathJax [does not support](https://github.com/mathjax/mathjax-docs/wiki/Non-italic-(upright)-greek-letters) upright lower-case Greek characters.
 :::: \mu-Cl
 :::: [Pt(\eta^2-C2H4)Cl3]-
+Spaces after a greek character are ignored. This is standard TeX behavior. Insert `{}` to get the desired output.
+:::: \beta +
+:::: ^40_18Ar + \gamma{} + \nu_e
 
 ## (Italic) Math
 By using `$...$`, you can escape to math mode.
