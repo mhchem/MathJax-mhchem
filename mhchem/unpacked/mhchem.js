@@ -33,7 +33,7 @@
 
 
 MathJax.Extension["TeX/mhchem"] = {
-  version: "3.0.0"
+  version: "3.0.1"
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
@@ -294,7 +294,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     '\\x ': /^\\[a-zA-Z]+\s/,
     '\\x': /^(?:\\[a-zA-Z]+|\\[_&{}%])/,
     'orbital': /^(?:[0-9]{1,2}[spdfgh]|[0-9]{0,2}sp)(?=$|[^a-zA-Z])/,  // only those with numbers in front, because the others will be formatted correctly anyway
-    'others': /^[:\/'\u2019~|]/,  //fimxe ' weg
+    'others': /^[\/~|]/,
     '\\frac{(...)}': function (input) { return this['_findObserveGroups'](input, "\\frac{", "", "", "}", "{", "", "", "}"); },
     '\\overset{(...)}': function (input) { return this['_findObserveGroups'](input, "\\overset{", "", "", "}", "{", "", "", "}"); },
     '\\underset{(...)}': function (input) { return this['_findObserveGroups'](input, "\\underset{", "", "", "}", "{", "", "", "}"); },
