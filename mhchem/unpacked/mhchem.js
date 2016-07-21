@@ -162,7 +162,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
                 } else if (mhchemParser.actions[a]) {
                   o = mhchemParser.actions[a](buffer, matches.matchh, option);
                 } else {
-                  throw ["InternalMhchemErrorNonExistingAction", "Internal mhchem Error \u2013 Trying to use non-existing action (" + a + ")"];
+                  throw ["MhchemBugA", "mhchem bug A. Please report. (" + a + ")"];  // Trying to use non-existing action
                 }
               } else if (typeof a === "function") {
                 o = a(buffer, matches.matchh);
@@ -193,7 +193,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       // Prevent infinite loop
       //
       if (watchdog <= 0) {
-        throw ["MhchemErrorUnexpectedCharacter", "mhchem Error \u2013 Unexpected character"];
+        throw ["MhchemBugU", "mhchem bug U. Please report."];  // Unexpected character
       }
     }
   };
@@ -404,7 +404,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   mhchemParser.matchh = function (m, input) {
     var pattern = mhchemParser.patterns[m];
     if (pattern === undefined) {
-      throw ["InternalMhchemErrorNonExistingPattern", "Internal mhchem Error \u2013 Trying to use non-existing pattern (" + m + ")"];
+      throw ["MhchemBugP", "mhchem bug P. Please report. (" + m + ")"];  // Trying to use non-existing pattern
     } else if (typeof pattern === "function") {
       return mhchemParser.patterns[m](input);  // cannot use cached var pattern here, because some pattern functions need this===mhchemParser
     } else {  // RegExp
@@ -1379,7 +1379,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       'bond': function (buf) {
         var ret = texify.bonds[buf.kind];
         if (!ret) {
-          throw ["MhchemErrorUnknownBond", "mhchem Error \u2013 Unknown bond type (" + buf.kind + ")"];
+          throw ["MhchemErrorBond", "mhchem Error. Unknown bond type (" + buf.kind + ")"];
         }
         return ret;
       },
@@ -1522,7 +1522,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           a = a.replace("{1}", inputi.p2 || "");
           res += a;
         } else {
-          throw ["InternalMhchemErrorUnknownMhchemParserOutput", "Internal mhchem Error \u2013 Unknown MhchemParser output"];
+          throw ["MhchemBugT", "mhchem bug T. Please report."];  // Missing texify rule or unknown MhchemParser output
         }
       }
       return res;
