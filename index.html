@@ -5,21 +5,19 @@
   <script type="text/x-mathjax-config">
     MathJax.Ajax.config.path["Contrib"] = "https://mhchem.github.io/MathJax-mhchem";
     MathJax.Hub.Config({
-      jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML", "output/PreviewHTML"],
       tex2jax: {
         ignoreClass: "tex2jax_ignore",
         inlineMath: [["$","$"]]
       },
-      extensions: ["tex2jax.js", "MathMenu.js", "MathZoom.js", "fast-preview.js", "AssistiveMML.js"],
       TeX: {
-        extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js", "[Contrib]/mhchem/mhchem.js", "color.js"],
+        extensions: ["[Contrib]/mhchem/mhchem.js", "color.js"],
         noErrors: { disabled: true }
       }
     });
   </script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>html, body, div, span, h1, h2, h3, h4, h5, h6, p, pre, code, a, b, u, i, em, strong, ol, ul, li, textarea { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }</style>
+  <style>html, body, div, span, h1, h2, h3, h4, h5, h6, p, pre, code, a, b, u, i, em, strong, ol, ul, li, blockquote, textarea { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }</style>
   <link href="https://fonts.googleapis.com/css?family=Alegreya:400,400i,700|Alegreya+SC:400|Source+Code+Pro:600" rel="stylesheet">
   <style>
     html { background-color: #f7f7f7; }
@@ -36,7 +34,7 @@
     .a { padding-left: 1.8rem; }
     .b { color: rgba(163,62,0,1); padding: 0 1rem; margin: 0.25rem 0 0 0; border-radius: 0.25rem; transition: background-color 3s; }
     body:hover .b { background-color: #f0f0f0; transition: background-color 1s; }
-    code { font-family: 'Source Code Pro', monospace; font-size: 95%; white-space: normal; }
+    code { font-family: 'Source Code Pro', monospace; font-size: 90%; white-space: normal; padding: 0 0.2rem; }
     .b code.before, .b code.after { color: #aaa; }
     .c { font-size: 80%; }
     em { font-style: italic; }
@@ -44,6 +42,7 @@
     a:hover { text-decoration: underline; }
     ul { list-style: none; }
     li { margin: 0.5rem 0; }
+    blockquote { margin-left: 2rem; font-size: 90%; }
     #input { display: block; width: 100%; font-family: 'Source Code Pro', monospace; font-size: 95%; color: rgba(163,62,0,1); background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; padding: 0.3rem 0.6rem; }
     #input:focus { background-color: #fff; }
     #output { margin: 1rem; min-height: 2rem; }
@@ -59,7 +58,13 @@
 
 # MathJax/mhchem Syntax
 
-This is the manual for the input syntax of mhchem 3.0.1. mhchem is a third-party extension for MathJax. For how to load it and make the `\ce` command available, see the [official MathJax docs](http://docs.mathjax.org/en/latest/tex.html#mhchem) (pending publication of MathJax 2.7.0).
+mhchem is a tool to easily write beautiful chemical equations.
+
+This is the manual for mhchem's input syntax. It covers version 3.0.1 of MathJax/mhchem.
+
+mhchem is a third-party extension for MathJax. For how to load it and make the `\ce` command available, see the [official MathJax docs](http://docs.mathjax.org/en/latest/tex.html#mhchem) (pending publication of MathJax 2.7.0).
+
+> While we are waiting for MathJax 2.7.0, you can [set the `path["Contrib"]` to the CDN URL](http://docs.mathjax.org/en/latest/options/ThirdParty.html) and then ask for `extensions: ["[Contrib]/mhchem/mhchem.js"]`.
 
 ## Chemical Equations (ce)
 :::: CO2 + C -> 2 CO
@@ -129,7 +134,7 @@ If a more complex term is not properly recognized, you can switch to math mode (
 italics) explicitly.
 
 ## Greek Characters
-Just write \alpha etc. Typographical conventions say that variables are typeset in italic font, while other entities (like chemical elements) are typeset in an upright font. In the following examples, the Greek character is *not* a variable that stands for a number, therefore an upright font *should* used. Unfortunately, MathJax [does not support](https://github.com/mathjax/mathjax-docs/wiki/Non-italic-(upright)-greek-letters) upright lower-case Greek characters.
+Just write `\alpha` etc. Typographical conventions say that variables are typeset in italic font, while other entities (like chemical elements) are typeset in an upright font. In the following examples, the Greek character is *not* a variable that stands for a number, therefore an upright font *should* used. Unfortunately, MathJax [does not support](https://github.com/mathjax/mathjax-docs/wiki/Non-italic-(upright)-greek-letters) upright lower-case Greek characters.
 :::: \mu-Cl
 :::: [Pt(\eta^2-C2H4)Cl3]-
 Spaces after a greek character are ignored. This is standard TeX behavior. Insert `{}` to get the desired output.
