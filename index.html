@@ -32,7 +32,7 @@
     .example { margin: 1rem 2rem 1rem 0; display: inline-block; vertical-align: top; }
     .a, .b, .c { text-align: center; }
     .a { padding-left: 1.8rem; }
-    .b { color: rgba(163,62,0,1); padding: 0 1rem; margin: 0.25rem 0 0 0; border-radius: 0.25rem; transition: background-color 3s; }
+    .b { color: rgba(163,62,0,1); padding: 0 .25rem; margin: 0.25rem 0 0 0; border-radius: 0.25rem; transition: background-color 3s; }
     body:hover .b { background-color: #f0f0f0; transition: background-color 1s; }
     code { font-family: 'Source Code Pro', monospace; font-size: 90%; white-space: normal; padding: 0 0.2rem; }
     .b code.before, .b code.after { color: #aaa; }
@@ -58,13 +58,13 @@
 
 # MathJax/mhchem Syntax
 
-mhchem is a tool to easily write beautiful chemical equations.
+mhchem is a tool for writing beautiful chemical equations easily.
 
 This is the manual for mhchem's input syntax. It covers version 3.0.1 of MathJax/mhchem.
 
-mhchem is a third-party extension for MathJax. For how to load it and make the `\ce` command available, see the [official MathJax docs](http://docs.mathjax.org/en/latest/tex.html#mhchem) (pending publication of MathJax 2.7.0).
+mhchem is a third-party extension for [MathJax](https://mathjax.org/). For information on how to load it and make the `\ce` command available, see the [official MathJax docs](http://docs.mathjax.org/en/latest/tex.html#mhchem) (pending publication of MathJax 2.7.0).
 
-> While we are waiting for MathJax 2.7.0, you can [set the `path["Contrib"]` to the CDN URL](http://docs.mathjax.org/en/latest/options/ThirdParty.html) and then ask for `extensions: ["[Contrib]/mhchem/mhchem.js"]`.
+> While we are waiting for MathJax 2.7.0, you can [set `path["Contrib"]` to the CDN URL](http://docs.mathjax.org/en/latest/options/ThirdParty.html) and then ask for `extensions: ["[Contrib]/mhchem/mhchem.js"]`.
 
 ## Chemical Equations (ce)
 :::: CO2 + C -> 2 CO
@@ -95,7 +95,7 @@ mhchem is a third-party extension for MathJax. For how to load it and make the `
 :::: ^227_90Th+
 :::: ^{0}_{-1}n^{-}
 :::: ^0_-1n-
-It might be ambiguous whether a superscript belongs to the left or right element. You can make sure by hand (using `{}`) or leave it to the automatic detection (digits only = mass number = belongs to right side).
+It might be ambiguous whether a superscript belongs to the left or right element. There is automatic detection (digits only = mass number = belongs to right side), but to make sure you can type `{}` as a separator.
 :::: H{}^3HO
 :::: H^3HO
 
@@ -107,34 +107,33 @@ It might be ambiguous whether a superscript belongs to the left or right element
 :::: A <=> B
 :::: A <=>> B
 :::: A <<=> B
-Each arrow can take two optional arguments, for above and below. The arrow arguments use the same syntax as the \ce command.
+Each arrow can take two optional arguments: one for above and one for below. The arrow arguments use the same input syntax as the `\ce` command.
 :::: A ->[H2O] B % chemistry
 :::: A ->[{text above}][{text below}] B % upright text, see below
 :::: A ->[$x$][$x_i$] B % italic math, see below
 Unfortunately, MathJax [cannot stretch](https://github.com/mathjax/MathJax/issues/1491) `<-->`, `<=>`, `<=>>` and `<<=>` arrows properly.
 
-## Parenthesis, Brackets, Braces
-Use parenthesis `( )` and brackets `[ ]` normally. Write braces as `\{ \}`.
+## Parentheses, Brackets, Braces
+Use parentheses `( )` and brackets `[ ]` normally. Write braces as `\{ \}`.
 :::: (NH4)2S
 :::: [\{(X2)3\}2]^3+
-For large parenthesis, `\left` and `\right` macros, need to be in the same math environment, so you might have to put `\ce` into `$` into `\ce`, but that's fine.
+For large parentheses, `\left` and `\right` macros need to be in the same math environment, so you might have to put `\ce` into `$` into `\ce`, but that's fine.
 :::: CH4 + 2 $\left( \ce{O2 + 79/21 N2} \right)$
 
 ## States of Aggregation
 :::: H2(aq) % IUPAC recommendation
-:::: CO3^2-{}_{(aq)} % not according to IUPAC
+:::: CO3^2-{}_{(aq)} % not IUPAC-conform
 :::: NaOH(aq,$\infty$)
 
 ## Variables like __*x*, *n*, 2*n*+1__
-Typographical conventions say that variables are typeset in italic font, while other entities (like chemical elements) are typeset in an upright font. mhchem tries to recognize common patterns and use the correct (italic) font, like the *x* and *n* in the following examples.
+Typographical conventions say that variables are typeset in an italic font, while other entities (like chemical elements) are typeset in an upright font. mhchem tries to recognize common patterns and use the correct (italic) font, like the *x* and *n* in the following examples.
 :::: NO_x
 :::: Fe^n+
 :::: x Na(NH4)HPO4 ->[\Delta] (NaPO3)_x + x NH3 ^ + x H2O
-If a more complex term is not properly recognized, you can switch to math mode (=
-italics) explicitly.
+If a more complex term is not properly recognized, you can switch to math mode (= italics) explicitly.
 
 ## Greek Characters
-Just write `\alpha` etc. Typographical conventions say that variables are typeset in italic font, while other entities (like chemical elements) are typeset in an upright font. In the following examples, the Greek character is *not* a variable that stands for a number, therefore an upright font *should* used. Unfortunately, MathJax [does not support](https://github.com/mathjax/mathjax-docs/wiki/Non-italic-(upright)-greek-letters) upright lower-case Greek characters.
+Just write `\alpha` etc. Typographical conventions say that variables are typeset in an italic font, while other entities (like chemical elements) are typeset in an upright font. In the following examples, the Greek character is *not* a variable that stands for a number, therefore an upright font *should* be used. Unfortunately, MathJax [does not support](https://github.com/mathjax/mathjax-docs/wiki/Non-italic-(upright)-greek-letters) upright lower-case Greek characters.
 :::: \mu-Cl
 :::: [Pt(\eta^2-C2H4)Cl3]-
 Spaces after a greek character are ignored. This is standard TeX behavior. Insert `{}` to get the desired output.
@@ -142,7 +141,7 @@ Spaces after a greek character are ignored. This is standard TeX behavior. Inser
 :::: ^40_18Ar + \gamma{} + \nu_e
 
 ## (Italic) Math
-By using `$...$`, you can escape to math mode.
+By using `$...$` you can escape to math mode.
 :::: NaOH(aq,$\infty$)
 :::: Fe(CN)_{$\frac{6}{2}$}
 :::: X_{$i$}^{$x$}
@@ -150,7 +149,7 @@ By using `$...$`, you can escape to math mode.
 (With LaTeX/mhchem, there is a difference between `$...$` and `${...}$`. But because MathJax does not have a text font, both inputs will yield identical results for MathJax/mhchem.)
 
 ## Italic Text
-With the same mechanism, you can mimic italic text font.
+With the same mechanism you can mimic an italic text font.
 :::: $cis${-}[PtCl2(NH3)2]
 :::: CuS($hP12$) % Pearson Symbol
 Spaces will be ignored. Use a `~` when you need to typeset a space.
@@ -220,7 +219,7 @@ mhchem tries to differentiate whether `\ce{-}` should be a bond, a charge or a h
 
 ## Physical Units (pu)
 ::::pu 123 kJ
-There are two conventions about the multiplication within units.
+There are two conventions regarding the multiplication within units.
 ::::pu 123 J s
 ::::pu 123 J*s
 There are four conventions regarding divisions.
@@ -237,7 +236,7 @@ There are four main conventions for writing numbers in scientific notation.
 If you need more control than is offered here, take a look at the siunitx extension.
 
 ## Compatibility with __LaTeX/mhchem__
-These examples work identical for MathJax/mhchem and LaTeX/mhchem. However, there are some edge-cases that render differently. I will try to minimize the differences in the future. But even then, MathJax/mhchem will always be more tolerant towards sloppy input (e.g. a missing space) than LaTeX/mhchem.
+These examples work identically for MathJax/mhchem and LaTeX/mhchem. However, there are some edge-cases that render differently. I will try to minimize the differences in the future. But even then, MathJax/mhchem will always be more tolerant of sloppy input (e.g. a missing space) than LaTeX/mhchem.
 
 ## Contact and Support
 If you have a question and cannot find an answer---neither here nor with a web search---then
