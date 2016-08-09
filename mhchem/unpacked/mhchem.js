@@ -33,7 +33,7 @@
 
 
 MathJax.Extension["TeX/mhchem"] = {
-  version: "3.0.1"
+  version: "3.0.2"
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
@@ -1214,6 +1214,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         '*': { action: 'output-r' } },
       '*': {
         '*': { action: [ 'output-r', 'cdot' ], nextState: '1' } },
+      '\\x': {
+        '*': { action: 'rm=' } },
       '.|space': {
         '*': { action: [ 'output-r', 'space' ] } },
       '^(-1)': {
