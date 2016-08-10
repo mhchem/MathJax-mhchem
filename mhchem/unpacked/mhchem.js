@@ -33,7 +33,7 @@
 
 
 MathJax.Extension["TeX/mhchem"] = {
-  version: "3.0.2"
+  version: "3.0.3"
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
@@ -1323,7 +1323,6 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           res += "{\\vphantom{X}}";
           res += "^{\\smash[t]{\\vphantom{2}}\\llap{"+(buf.b||"")+"}}";
           res += "_{\\vphantom{2}\\llap{\\smash[t]{"+(buf.p||"")+"}}}";
-          res += "\\mskip-0mu ";
         }
         //
         // o
@@ -1376,8 +1375,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         }
       },
       'roman numeral': function (buf) { return "\\mathrm{"+buf.p1+"}"; },
-      'state of aggregation': function (buf) { return "\\mskip3mu "+texify.go(buf.p1); },
-      'state of aggregation subscript': function (buf) { return "\\mskip2mu "+texify.go(buf.p1)+"\\mskip1mu "; },
+      'state of aggregation': function (buf) { return "\\mskip2mu "+texify.go(buf.p1); },
+      'state of aggregation subscript': function (buf) { return "\\mskip1mu "+texify.go(buf.p1); },
       'bond': function (buf) {
         var ret = texify.bonds[buf.kind];
         if (!ret) {
@@ -1422,14 +1421,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
             arrow = "\\long"+arrow;
             if (buf.rd) { arrow = "\\overset{"+buf.rd+"}{"+arrow+"}"; }
             if (buf.rq) { arrow = "\\underset{"+buf.rq+"}{"+arrow+"}"; }
-            arrow = " \\mkern3mu\\mathrel{"+arrow+"}\\mkern3mu ";
+            arrow = " {}\\mathrel{"+arrow+"}{} ";
           } else {
             if (buf.rq) { arrow += "[{"+buf.rq+"}]"; }
             arrow += "{"+buf.rd+"}";
-            arrow = " \\mkern3mu\\mathrel{\\x"+arrow+"}\\mkern3mu ";
+            arrow = " {}\\mathrel{\\x"+arrow+"}{} ";
           }
         } else {
-          arrow = " \\mkern3mu\\mathrel{\\long"+arrow+"}\\mkern3mu ";
+          arrow = " {}\\mathrel{\\long"+arrow+"}{} ";
         }
         return arrow;
       },
@@ -1492,17 +1491,17 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       ' / ': "\\,/\\,"
     },
     operators: {
-      "+": " \\mkern3mu+\\mkern3mu ",
-      "-": " \\mkern3mu-\\mkern3mu ",
-      "=": " \\mkern3mu=\\mkern3mu ",
-      "<": " \\mkern3mu<\\mkern3mu ",
-      ">": " \\mkern3mu>\\mkern3mu ",
-      "<<": " \\mkern3mu\\ll\\mkern3mu ",
-      ">>": " \\mkern3mu\\gg\\mkern3mu ",
-      "\\pm": " \\mkern3mu\\pm\\mkern3mu ",
-      "$\\pm$": " \\mkern3mu\\pm\\mkern3mu ",
-      "\\approx": " \\mkern3mu\\approx\\mkern3mu ",
-      "$\\approx$": " \\mkern3mu\\approx\\mkern3mu ",
+      "+": " {}+{} ",
+      "-": " {}-{} ",
+      "=": " {}={} ",
+      "<": " {}<{} ",
+      ">": " {}>{} ",
+      "<<": " {}\\ll{} ",
+      ">>": " {}\\gg{} ",
+      "\\pm": " {}\\pm{} ",
+      "$\\pm$": " {}\\pm{} ",
+      "\\approx": " {}\\approx{} ",
+      "$\\approx$": " {}\\approx{} ",
       "v": " \\downarrow{} ",
       "(v)": " \\downarrow{} ",
       "^": " \\uparrow{} ",
