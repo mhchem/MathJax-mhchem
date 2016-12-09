@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - node
+before_install:
+ - cd mhchem
+install:
+  - npm install
+script:
+  - npm test

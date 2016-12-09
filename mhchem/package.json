@@ -1,0 +1,18 @@
+{
+  "name": "mathjax-mhchem-test",
+  "version": "1.0.0",
+  "description": "Test suite for MathJax/mhchem extension",
+  "scripts": {
+    "test": "tape tests/*.js"
+  },
+  "author": "Martin Hensel",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mhchem/MathJax-mhchem.git"
+  },
+  "devDependencies": {
+    "tape": "^4.0.3",
+    "request": "^2.74.0"
+  }
+}
