@@ -1,6 +1,6 @@
-# MathJax/mhchem Extension
+# MathJax/mhchem Extension 3.0
 
-mhchem is a 3rd-party extension to MathJax for typesetting chemical equations.
+mhchem 3.0 is a 3rd-party extension to MathJax for typesetting chemical equations.
 
 
 ## Usage
@@ -15,10 +15,15 @@ mhchem is a 3rd-party extension to MathJax for typesetting chemical equations.
 
 ## Using the MathJax CDN
 
-The easiest way to use mhchem 3.0.1 is to wait a few weeks for MathJax 2.7.0 and then follow the—then updated—instructions at the [official MathJax Documentation](http://docs.mathjax.org/en/latest/tex.html#mhchem)
+For information on how to load the extension and make the `\ce` command available,
+see the [official MathJax docs](http://docs.mathjax.org/en/latest/configuration.html#using-in-line-configuration-options).
+In short, use this config:
 
+    TeX: {
+        extensions: ["[Contrib]/mhchem/mhchem.js"]
+    }
 
-## Changes (when compared to 2.6.0)
+## Changes of v3.0.x (when compared to v2.6.0 "legacy: true")
 
 - Complete rewrite of syntax parser
 - Staggered layout for charges (IUPAC style)
