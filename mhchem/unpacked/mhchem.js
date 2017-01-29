@@ -301,7 +301,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     '\\color{(...)}{(...)}1': function (input) { return this['_findObserveGroups'](input, "\\color{", "", "", "}", "{", "", "", "}"); },
     '\\color(...){(...)}2': function (input) { return this['_findObserveGroups'](input, "\\color", "\\", "", /^(?=\{)/, "{", "", "", "}"); },
     '\\ce{(...)}': function (input) { return this['_findObserveGroups'](input, "\\ce{", "", "", "}"); },
-    'oxidation$': /^(?:[+\-]?\s?[IVX]+|\\pm\s*0|\$\\pm\$\s*0)$/,  // 0 could be oxidation or charge
+    'oxidation$': /^(?:[+-][IVX]+|\\pm\s*0|\$\\pm\$\s*0)$/,
+    'd-oxidation$': /^(?:[+-]?\s?[IVX]+|\\pm\s*0|\$\\pm\$\s*0)$/,  // 0 could be oxidation or charge
     'roman numeral': /^[IVX]+/,
     '1/2$': /^[+\-]?[0-9]+\/[0-9]+$/,
     'amount': function (input) {
@@ -527,6 +528,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         '*': { action: 'output' } },
       'else':  {
         '0|1|2': { action: 'beginsWithBond=false', revisit: true, toContinue: true } },
+      'oxidation$': {
+        '0': { action: 'oxidation-output' } },
       'CMT': {
         'r': { action: 'rdt=', nextState: 'rt' },
         'rd': { action: 'rqt=', nextState: 'rdt' } },
@@ -797,7 +800,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
               buffer.q = buffer.p;
               buffer.a = buffer.b = buffer.p = undefined;
             } else {
-              if (buffer.o && buffer['d-type']==='kv' && mhchemParser.matchh('oxidation$', buffer.d || '')) {
+              if (buffer.o && buffer['d-type']==='kv' && mhchemParser.matchh('d-oxidation$', buffer.d || '')) {
                 buffer['d-type'] = 'oxidation';
               } else if (buffer.o && buffer['d-type']==='kv' && !buffer.q) {
                 buffer['d-type'] = undefined;
@@ -808,7 +811,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
             buffer.p = mhchemParser.go(buffer.p, 'pq');
             buffer.o = mhchemParser.go(buffer.o, 'o');
             if (buffer['d-type'] === 'oxidation') {
-              buffer.d = mhchemParser.go(buffer.d, 'd-oxidation');
+              buffer.d = mhchemParser.go(buffer.d, 'oxidation');
             } else {
               buffer.d = mhchemParser.go(buffer.d, 'bd');
             }
@@ -851,6 +854,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
             delete buffer[p];
           }
         }
+        return ret;
+      },
+      'oxidation-output': function (buffer, m) {
+          var ret = [ "{" ];
+          ret = mhchemParser.concatNotUndefined(ret, mhchemParser.go(m, 'oxidation'));
+          ret = ret.concat([ "}" ]);
         return ret;
       },
       'frac-output': function (buffer, m) {
@@ -1048,14 +1057,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     }
   };
   //
-  // Transitions and actions of d-oxidation parser
+  // Transitions and actions of oxidation parser
   //
-  mhchemParser.stateMachines['d-oxidation'] = {
+  mhchemParser.stateMachines['oxidation'] = {
     transitions: mhchemParser.createTransitions({
       'empty': {
         '*': {} },
       'roman numeral': {
-        '0': { action: 'roman-numeral' } },
+        '*': { action: 'roman-numeral' } },
       '${(...)}$|$(...)$': {
         '*': { action: 'tex-math' } },
       'else': {
