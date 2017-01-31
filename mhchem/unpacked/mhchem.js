@@ -332,8 +332,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       return null;
     },
     'uprightEntities': /^(?:pH|pOH|pC|pK|iPr|iBu)(?=$|[^a-zA-Z])/,
-    'dissociationConstant1': /^(p)?K(?:_?(a|b|w))(?=$|[^a-zA-Z])/,
-    'dissociationConstant2': /^(p)?K(?:_{(a|b|w)})/,
+    'pKConstant1': /^pK([abw]|eq|sp)(?=$|[^a-zA-Z0-9])/,  // acid/base dissociation constant, freezing/boiling-point depression, ionic product for water, equilibrium constants
+    'pKConstant2': /^pK_([abw])/,
+    'pKConstant3': /^pK_{([abw]|eq|sp)}/,
+    'KConstant1': /^K([abwfcp]|eq|sp)(?=$|[^a-zA-Z0-9])/,
+    'KConstant2': /^K_([abwfcpCP])/,
+    'KConstant3': /^K_{([abwfcpCP]|eq|sp)}/,
     '/': /^\s*(\/)\s*/,
     '//': /^\s*(\/\/)\s*/,
     '*': /^\s*\*\s*/,
@@ -535,8 +539,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         'rd': { action: 'rqt=', nextState: 'rdt' } },
       'arrowUpDown': {
         '0|1|2|as': { action: [ 'sb=false', 'output', 'operator' ], nextState: '1' } },
-      'dissociationConstant1|dissociationConstant2': {
-        '0|1|2': { action: [ { type: 'output', option: 1 }, { type: 'insert+p1+p2', option: 'dissociationConstant' } ], nextState: '1' } },
+      'pKConstant1|pKConstant2|pKConstant3': {
+        '0|1|2': { action: [ { type: 'output', option: 1 }, { type: 'insert+p1', option: 'pKConstant' } ], nextState: '1' } },
+      'KConstant1|KConstant2|KConstant3': {
+        '0|1|2': { action: [ { type: 'output', option: 1 }, { type: 'insert+p1', option: 'KConstant' } ], nextState: '1' } },
       'uprightEntities': {
         '0|1|2': { action: [ 'o=', 'output' ], nextState: '1' } },
       'orbital': {
@@ -1495,7 +1501,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       '^': "uparrow",
       'v': "downarrow",
       'ellipsis': "\\ldots ",
-      'dissociationConstant': "\\mathrm{{0}}K_{\\mathrm{{1}}}",
+      'pKConstant': "\\mathrm{p}K_{\\mathrm{{0}}}",
+      'KConstant': "K_{\\mathrm{{0}}}",
       '/': "/",
       ' / ': "\\,/\\,"
     },

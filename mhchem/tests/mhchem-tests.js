@@ -232,6 +232,10 @@ testCe('$K = \\frac{[\\ce{Hg^2+}][\\ce{Hg}]}{[\\ce{Hg2^2+}]}$', 'K = \\frac{[\\c
 testCe('$K = \\ce{\\frac{[Hg^2+][Hg]}{[Hg2^2+]}}$', 'K =  \\frac{[\\mathrm{Hg}{\\vphantom{X}}^{2+}][\\mathrm{Hg}]}{[\\mathrm{Hg}{\\vphantom{X}}_{\\smash[t]{2}}{\\vphantom{X}}^{2+}]}');
 testCe('Hg^2+ ->[I-]  $\\underset{\\mathrm{red}}{\\ce{HgI2}}$  ->[I-]  $\\underset{\\mathrm{red}}{\\ce{[Hg^{II}I4]^2-}}$', '\\mathrm{Hg}{\\vphantom{X}}^{2+} {}\\mathrel{\\xrightarrow{\\mathrm{I}{\\vphantom{X}}^{-}}}{} \\underset{\\mathrm{red}}{\\ce{HgI2}}  {}\\mathrel{\\xrightarrow{\\mathrm{I}{\\vphantom{X}}^{-}}}{} \\underset{\\mathrm{red}}{\\ce{[Hg^{II}I4]^2-}} ');
 
+/// Others
+testCe('K_f', 'K_{\\mathrm{f}}');
+testCe('K_P', 'K_{\\mathrm{P}}');
+
 /// \pu
 testPu('123 kJ', '123\\mkern3mu \\mathrm{kJ}');
 testPu('123 J s', '123\\mkern3mu \\mathrm{J}\\mkern3mu \\mathrm{s}');
