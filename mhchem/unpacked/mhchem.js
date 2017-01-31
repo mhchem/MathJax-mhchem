@@ -137,12 +137,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       var machine = mhchemParser.stateMachines[stateMachine];
       var iTmax = machine.transitions.length;
       iterateTransitions:
-      for (var iT=0; iT<iTmax; iT++) {
+      for (var iT=0; iT<iTmax; iT++) {  // Surprisingly, looping is not slower than another data structure with direct lookups.  635d910e-0a6d-45b4-8d38-2f98ac9d9a94
         var t = machine.transitions[iT];
-        var matches = mhchemParser.matchh(t.matchh, input);
-        if (matches) {
-          var tasks = t.actions[state]  ||  t.actions['*']  || null;
-          if (tasks) {
+        var tasks = t.actions[state]  ||  t.actions['*']  ||  null;
+        if (tasks) {  // testing tasks (actions) before matches is slightly faster
+          var matches = mhchemParser.matchh(t.matchh, input);
+          if (matches) {
             //
             // Execute action
             //
