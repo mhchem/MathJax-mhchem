@@ -151,6 +151,10 @@ testCe('H2(aq)', '\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{2}}\\mskip2mu (\\mathrm
 testCe('CO3^2-{}_{(aq)}', '\\mathrm{CO}{\\vphantom{X}}_{\\smash[t]{3}}{\\vphantom{X}}^{2-}{\\vphantom{X}}_{\\smash[t]{\\mskip1mu (\\mathrm{aq})}}');
 testCe('NaOH(aq,$\\infty$)', '\\mathrm{NaOH}\\mskip2mu (\\mathrm{aq},\\infty )');
 
+/// Crystal Systems
+testCe('ZnS ($c$)', '\\mathrm{ZnS}\\mskip2mu (c )');
+testCe('ZnS (\\ca$c$)', '\\mathrm{ZnS}\\mskip2mu ({\\sim}c )');
+
 /// Variables like __*x*, *n*, 2*n*+1__
 testCe('NO_x', '\\mathrm{NO}{\\vphantom{X}}_{\\smash[t]{x }}');
 testCe('Fe^n+', '\\mathrm{Fe}{\\vphantom{X}}^{n +}');
@@ -222,7 +226,7 @@ testCe('1s^2-N', '1\\mathrm{s}{\\vphantom{X}}^{2}\\text{-}\\mathrm{N}');
 testCe('pKa', '\\mathrm{p}K_{\\mathrm{a}}');
 testCe('n-Pr', 'n \\text{-}\\mathrm{Pr}');
 testCe('iPr', '\\mathrm{iPr}');
-testCe('ZnS (\\ca$c$)', '\\mathrm{ZnS}~({\\sim}c )');
+testCe('\\ca Fe', '{\\sim}\\mathrm{Fe}');
 testCe('A, B, C; F', '\\mathrm{A}{,}\\mkern6mu \\mathrm{B}{,}\\mkern6mu \\mathrm{C}{;}\\mkern6mu \\mathrm{F}');
 testCe('{and others}', '{\\text{and others}}');
 

@@ -233,10 +233,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       }
       return null;
     },
-    'state of aggregation $':  function (input) {  // or crystal system
-      var a = this['_findObserveGroups'](input, "", /^\([a-z]{1,3}(?=[\),])/, ")", "");
-      if (a  &&  a.remainder.match(/^($|[\s,;\)\]\}])/))  { return a; }
-      var m = input.match(/^(?:\(\$(?:\\ca\s+)?[amothc]\$\))/);  // crystal system
+    'state of aggregation $': function (input) {  // or crystal system
+      var a = this['_findObserveGroups'](input, "", /^\([a-z]{1,3}(?=[\),])/, ")", "");  // (aq), (aq,$\infty$), (aq, sat)
+      if (a  &&  a.remainder.match(/^($|[\s,;\)\]\}])/))  { return a; }  //  AND end of 'phrase'
+      var m = input.match(/^(?:\((?:\\ca\s?)?\$[amothc]\$\))/);  // OR crystal system ($o$) (\ca$c$)
       if (m) {
         return { matchh: m[0], remainder: input.substr(m[0].length) };
       }
@@ -681,8 +681,6 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         '*': { action: [ { type: 'output', option: 2 }, 'ce' ], nextState: '3' } },
       '\\,': {
         '*': { action: [ { type: 'output', option: 1 }, 'copy' ], nextState: '1' } },
-      '\\ca': {
-        '*': { action: [ { type: 'output', option: 1 }, { type: 'insert', option: 'circa' } ], nextState: '3' } },
       '\\x{}{}|\\x{}|\\x': {
         '0|1|2|3|a|as|b|p|bp|o|c0': { action: [ 'o=', 'output' ], nextState: '3' },
         '*': { action: ['output', 'o=', 'output' ], nextState: '3' } },
@@ -924,6 +922,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         '0': { nextState: '1', revisit: true } },
       'letters': {
         '*': { action: 'rm' } },
+      '\\ca': {
+        '*': { action: { type: 'insert', option: 'circa' } } },
       '\\x{}{}|\\x{}|\\x': {
         '*': { action: 'copy' } },
       '${(...)}$|$(...)$': {
