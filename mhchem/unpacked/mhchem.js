@@ -242,6 +242,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       }
       return null;
     },
+    '_{(state of aggregation)}$': /^_\{(\([a-z]{1,3}\))\}/,
     '\{[(': /^(?:\\\{|\[|\()/,
     ')]\}': /^(?:\)|\]|\\\})/,
     ', ': /^[,;]\s*/,
@@ -643,6 +644,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         'q': { action: 'd=', nextState: 'qd' },
         'd|qd|D|qD|': { action: 'd=' },
         'dq': { action: [ 'output', 'd=' ], nextState: 'd' } },
+      '_{(state of aggregation)}$': {
+        'd|D|q|qd|qD|dq': { action: [ 'output', 'q=' ], nextState: 'q' } },
       '_{(...)}|_($...$)|_9|_\\x{}{}|_\\x{}|_\\x': {
         '0|1|2|as': { action: 'p=', nextState: 'p' },
         'b': { action: 'p=', nextState: 'bp' },

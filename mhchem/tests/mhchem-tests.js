@@ -148,6 +148,7 @@ testCe('CH4 + 2 $\\left( \\ce{O2 + 79/21 N2} \\right)$', '\\mathrm{CH}{\\vphanto
 
 /// States of Aggregation
 testCe('H2(aq)', '\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{2}}\\mskip2mu (\\mathrm{aq})');
+testCe('CO3^2-_{(aq)}', '\\mathrm{CO}{\\vphantom{X}}_{\\smash[t]{3}}{\\vphantom{X}}^{2-}{\\vphantom{X}}_{\\smash[t]{\\mskip1mu (\\mathrm{aq})}}');
 testCe('CO3^2-{}_{(aq)}', '\\mathrm{CO}{\\vphantom{X}}_{\\smash[t]{3}}{\\vphantom{X}}^{2-}{\\vphantom{X}}_{\\smash[t]{\\mskip1mu (\\mathrm{aq})}}');
 testCe('NaOH(aq,$\\infty$)', '\\mathrm{NaOH}\\mskip2mu (\\mathrm{aq},\\infty )');
 
