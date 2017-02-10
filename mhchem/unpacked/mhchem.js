@@ -121,6 +121,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     buffer['parenthesisLevel'] = 0;
 
     input = input.replace(/[\u2212\u2013\u2014\u2010]/g, "-");
+    input = input.replace(/[\u2026]/g, "...");
 
     var lastInput, watchdog;
     var output = [];
