@@ -243,13 +243,16 @@ testCe('K_P', 'K_{\\mathrm{P}}');
 
 /// \pu
 testPu('123 kJ', '123\\mkern3mu \\mathrm{kJ}');
+testPu('123 mm2', '123\\mkern3mu \\mathrm{mm^{2}}');
 testPu('123 J s', '123\\mkern3mu \\mathrm{J}\\mkern3mu \\mathrm{s}');
 testPu('123 J*s', '123\\mkern3mu \\mathrm{J}\\mkern1mu{\\cdot}\\mkern1mu \\mathrm{s}');
 testPu('123 kJ/mol', '123\\mkern3mu \\mathrm{kJ}/\\mathrm{mol}');
 testPu('123 kJ//mol', '123\\mkern3mu \\mathchoice{\\textstyle\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}');
 testPu('123 kJ mol^-1', '123\\mkern3mu \\mathrm{kJ}\\mkern3mu \\mathrm{mol^{-1}}');
-testPu('123 kJ*mol^-1', '123\\mkern3mu \\mathrm{kJ}\\mkern1mu{\\cdot}\\mkern1mu \\mathrm{mol^{-1}}');
+testPu('123 kJ*mol-1', '123\\mkern3mu \\mathrm{kJ}\\mkern1mu{\\cdot}\\mkern1mu \\mathrm{mol^{-1}}');
 testPu('1.2e3 kJ', '1.2\\cdot 10^{3}\\mkern3mu \\mathrm{kJ}');
 testPu('1,2e3 kJ', '1{,}2\\cdot 10^{3}\\mkern3mu \\mathrm{kJ}');
 testPu('1.2E3 kJ', '1.2\\times 10^{3}\\mkern3mu \\mathrm{kJ}');
 testPu('1,2E3 kJ', '1{,}2\\times 10^{3}\\mkern3mu \\mathrm{kJ}');
+testPu('1234', '1234')
+testPu('12345', '12\\mkern2mu 345')
