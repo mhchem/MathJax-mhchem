@@ -127,8 +127,12 @@ For large parentheses, `\left` and `\right` macros need to be in the same math e
 
 ## States of Aggregation
 :::: H2(aq) % IUPAC recommendation
-:::: CO3^2-{}_{(aq)} % not IUPAC-conform
+:::: CO3^2-_{(aq)} % not IUPAC-conform
 :::: NaOH(aq,$\infty$)
+
+## Crystal Systems
+:::: ZnS($c$)
+:::: ZnS(\ca$c$) % Circa, tilde
 
 ## Variables like __*x*, *n*, 2*n*+1__
 Typographical conventions say that variables are typeset in an italic font, while other entities (like chemical elements) are typeset in an upright font. mhchem tries to recognize common patterns and use the correct (italic) font, like the *x* and *n* in the following examples.
@@ -212,7 +216,7 @@ mhchem tries to differentiate whether `\ce{-}` should be a bond, a charge or a h
 :::: pKa % Dissociation constant
 :::: n-Pr
 :::: iPr
-:::: ZnS (\ca$c$) % Circa, tilde
+:::: \ca Fe
 :::: A, B, C; F % Punctuation
 :::: {and others}
 
@@ -225,14 +229,15 @@ mhchem tries to differentiate whether `\ce{-}` should be a bond, a charge or a h
 <a name="pu"></a>
 ## Physical Units (pu)
 ::::pu 123 kJ
+::::pu 123 mm2
 There are two conventions regarding the multiplication within units.
 ::::pu 123 J s
 ::::pu 123 J*s
 There are four conventions regarding divisions.
 ::::pu 123 kJ/mol
 ::::pu 123 kJ//mol
-::::pu 123 kJ mol^-1
-::::pu 123 kJ*mol^-1
+::::pu 123 kJ mol-1
+::::pu 123 kJ*mol-1
 There are four main conventions for writing numbers in scientific notation.
 ::::pu 1.2e3 kJ
 ::::pu 1,2e3 kJ
