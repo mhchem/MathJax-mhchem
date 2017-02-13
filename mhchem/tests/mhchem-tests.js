@@ -120,6 +120,9 @@ testCe('0.5 H2O', '0.5\\,\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{2}}\\mathrm{O}')
 testCe('1/2 H2O', '\\mathchoice{\\textstyle\\frac{1}{2}}{\\frac{1}{2}}{\\frac{1}{2}}{\\frac{1}{2}}\\,\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{2}}\\mathrm{O}');
 testCe('(1/2) H2O', '(1/2)\\,\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{2}}\\mathrm{O}');
 testCe('$n$ H2O', 'n \\,\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{2}}\\mathrm{O}');
+testCe('n H2O', 'n\\,\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{2}}\\mathrm{O}');
+testCe('nH2O', 'n\\,\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{2}}\\mathrm{O}');
+testCe('n/2 H2O', '\\mathchoice{\\textstyle\\frac{n}{2}}{\\frac{n}{2}}{\\frac{n}{2}}{\\frac{n}{2}}\\,\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{2}}\\mathrm{O}');
 
 /// Isotopes
 testCe('^{227}_{90}Th+', '{\\vphantom{X}}^{\\hphantom{227}}_{\\hphantom{90}}{\\vphantom{X}}^{\\smash[t]{\\vphantom{2}}\\llap{227}}_{\\vphantom{2}\\llap{\\smash[t]{90}}}\\mathrm{Th}{\\vphantom{X}}^{+}');

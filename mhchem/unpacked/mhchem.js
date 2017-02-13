@@ -306,17 +306,17 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     'oxidation$': /^(?:[+-][IVX]+|\\pm\s*0|\$\\pm\$\s*0)$/,
     'd-oxidation$': /^(?:[+-]?\s?[IVX]+|\\pm\s*0|\$\\pm\$\s*0)$/,  // 0 could be oxidation or charge
     'roman numeral': /^[IVX]+/,
-    '1/2$': /^[+\-]?[0-9]+\/[0-9]+$/,
+    '1/2$': /^[+\-]?(?:[0-9]+|\$[a-z]\$|[a-z])\/[0-9]+(?:\$[a-z]\$|[a-z])?$/,
     'amount': function (input) {
       var matchh;
+      // e.g. 2, 0.5, 1/2, -2, n/2, +;  $a$ could be added later in parsing
+      matchh = input.match(/^(?:(?:(?:\([+\-]?[0-9]+\/[0-9]+\)|[+\-]?(?:[0-9]+|\$[a-z]\$|[a-z])\/[0-9]+|[+\-]?[0-9]+[.,][0-9]+|[+\-]?\.[0-9]+|[+\-]?[0-9]+)(?:[a-z](?=\s*[A-Z]))?)|[+\-]?[a-z](?=\s*[A-Z])|\+(?!\s))/);
+      if (matchh) {
+        return { matchh: matchh[0], remainder: input.substr(matchh[0].length) };
+      }
       var a = this['_findObserveGroups'](input, "", "$", "$", "");
       if (a) {  // e.g. $2n-1$, $-$
         matchh = a.matchh.match(/^\$(?:\(?[+\-]?(?:[0-9]*[a-z]?[+\-])?[0-9]*[a-z](?:[+\-][0-9]*[a-z]?)?\)?|\+|-)\$$/);
-        if (matchh) {
-          return { matchh: matchh[0], remainder: input.substr(matchh[0].length) };
-        }
-      } else {  // e.g. 2, 0.5, 1/2, -2, +, \pm0
-        matchh = input.match(/^(?:(?:(?:\([+\-]?[0-9]+\/[0-9]+\)|[+\-]?[0-9]+\/[0-9]+|[+\-]?[0-9]+[.,][0-9]+|[+\-]?\.[0-9]+|[+\-]?[0-9]+)(?:[a-z](?=\s*[A-Z]))?)|[+\-]?[a-z](?=\s*[A-Z])|\+(?!\s)|\\pm(?:\s+|(?![a-zA-Z])))/);
         if (matchh) {
           return { matchh: matchh[0], remainder: input.substr(matchh[0].length) };
         }
@@ -466,8 +466,13 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         ret = [ m.substr(0, 1) ];
         m = m.substr(1);
       }
-      var n = m.match(/^([0-9]+)\/([0-9]+)$/);
+      var n = m.match(/^([0-9]+|\$[a-z]\$|[a-z])\/([0-9]+)(\$[a-z]\$|[a-z])?$/);
+      n[1] = n[1].replace(/\$/g, "");
       ret = mhchemParser.concatNotUndefined(ret, { type: 'frac', p1: n[1], p2: n[2] } );
+      if (n[3]) {
+        n[3] = n[3].replace(/\$/g, "");
+        ret = mhchemParser.concatNotUndefined(ret, { type: 'tex-math', p1: n[3] } );
+      }
       return ret;
     },
     '9,9': function (buffer, m) { return mhchemParser.go(m, '9,9'); }
