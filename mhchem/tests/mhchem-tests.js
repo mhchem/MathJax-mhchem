@@ -243,6 +243,7 @@ testCe('Hg^2+ ->[I-]  $\\underset{\\mathrm{red}}{\\ce{HgI2}}$  ->[I-]  $\\unders
 /// Others
 testCe('K_f', 'K_{\\mathrm{f}}');
 testCe('K_P', 'K_{\\mathrm{P}}');
+testCe('pKa1', '\\mathrm{p}K_{\\mathrm{a_{1}}}');
 
 /// \pu
 testPu('123 kJ', '123\\mkern3mu \\mathrm{kJ}');
