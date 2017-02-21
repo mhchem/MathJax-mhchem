@@ -228,7 +228,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     '-9.,9': /^[+\-]?(?:[0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))/,
     '-9.,9 no missing 0': /^[+\-]?[0-9]+(?:[.,][0-9]+)?/,
     '(-)(9.,9)(e)(99)': function (input) {
-      var m = input.match(/^(\+\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+)?)(?:([eE])([+\-]?[0-9]+))?\s*/);
+      var m = input.match(/^(\+\-|\+\/\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+)?)(\((?:[0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+)?)\))?(?:([eE]|\s*(\*|x|\\times|\u00D7)\s*10\^)([+\-]?[0-9]+|\{[+\-]?[0-9]+\}))?/);
+      if (m && m[0]) {
+        return { matchh: m.splice(1), remainder: input.substr(m[0].length) };
+      }
+      return null;
+    },
+    '(-)(9)^(-9)':  function (input) {
+      var m = input.match(/^(\+\-|\+\/\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+)?)\^([+\-]?[0-9]+|\{[+\-]?[0-9]+\})/);
       if (m && m[0]) {
         return { matchh: m.splice(1), remainder: input.substr(m[0].length) };
       }
@@ -258,7 +265,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     '^\\x{}{}':  function (input) { return this['_findObserveGroups'](input, "^", /^\\[a-zA-Z]+\{/, "}", "", "", "{", "}", "", true); },
     '^\\x{}':  function (input) { return this['_findObserveGroups'](input, "^", /^\\[a-zA-Z]+\{/, "}", ""); },
     '^\\x': /^\^(\\[a-zA-Z]+)\s*/,
-    '^(-1)': /^\^?(-?\d+)/,
+    '^(-1)': /^\^(-?\d+)/,
     '\'': /^'/,
     '_{(...)}': function (input) { return this['_findObserveGroups'](input, "_{", "", "", "}"); },
     '_($...$)': function (input) { return this['_findObserveGroups'](input, "_", "$", "$", ""); },
@@ -280,7 +287,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     '-9': /^-(?=[0-9])/,
     '- orbital overlap': /^-(?=(?:[spd]|sp)(?:$|[\s,;\)\]\}]))/,
     '-': /^-/,
-    'operator': /^(?:[+]|(?:[\-=<>]|<<|>>|\\pm|\$\\pm\$|\\approx|\$\\approx\$)(?=\s+|$|-?[0-9]))/,
+    'pm-operator': /^(?:\\pm|\$\\pm\$|\+-|\+\/-)/,
+    'operator': /^(?:\+|(?:[\-=<>]|<<|>>|\\approx|\$\\approx\$)(?=\s|$|-?[0-9]))/,
     'arrowUpDown': /^(?:v|\(v\)|\^|\(\^\))(?=$|[\s,;\)\]\}])/,
     '\\bond{(...)}': function (input) { return this['_findObserveGroups'](input, "\\bond{", "", "", "}"); },
     '->': /^(?:<->|<-->|->|<-|<=>>|<<=>|<=>|[\u2192\u27F6\u21CC])/,
@@ -574,6 +582,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         '3': { action: [ 'sb=false', 'output', 'operator' ], nextState: '0' } },
       'amount': {
         '0|2': { action: 'a=', nextState: 'a' } },
+      'pm-operator': {
+        '0|1|2|a|as': { action: [ 'sb=false', 'output', { type: 'operator', option: '\\pm' } ], nextState: '0' } },
       'operator': {
         '0|1|2|a|as': { action: [ 'sb=false', 'output', 'operator' ], nextState: '0' } },
       '-$': {
@@ -899,7 +909,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       'rd=': function (buffer, m) { buffer.rd = (buffer.rd || '') + m; },
       'rqt=': function (buffer, m) { buffer.rqt = (buffer.rqt || '') + m; },
       'rq=': function (buffer, m) { buffer.rq = (buffer.rq || '') + m; },
-      'operator': function (buffer, m) { return { type: 'operator', kind: m }; }
+      'operator': function (buffer, m, p1) { return { type: 'operator', kind: (p1 || m) }; }
     }
   };
   //
@@ -1173,8 +1183,18 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     transitions: mhchemParser.createTransitions({
       'empty': {
         '*': { action: 'output' } },
+      '\{[(|)]\}': {
+        '0|a': { action: 'copy' } },
+      '(-)(9)^(-9)': {
+        '0': { action: 'number^', nextState: 'a' } },
       '(-)(9.,9)(e)(99)': {
         '0': { action: 'enumber', nextState: 'a' } },
+      'space': {
+        '0|a': {} },
+      'pm-operator': {
+        '0|a': { action: { type: 'operator', option: '\\pm' }, nextState: '0' } },
+      'operator': {
+        '0|a': { action: 'copy', nextState: '0' } },
       '//': {
         'd': { action: 'o=', nextState: '/' } },
       '/': {
@@ -1187,40 +1207,65 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     actions: {
       'enumber': function (buffer, m) {
         var ret = [];
-        if (m[0] === "+-") {
+        if (m[0] === "+-"  ||  m[0] === "+/-") {
           ret.push("\\pm ");
         } else if (m[0]) {
           ret.push(m[0]);
         }
         if (m[1]) {
           ret = mhchemParser.concatNotUndefined(ret, mhchemParser.go(m[1], 'pu-9,9'));
-          if (m[2] === "e") {
-            ret.push({ type: 'cdot' });
-          } else if (m[2] === "E") {
-              ret.push({ type: 'times' });
+          if (m[2]) {
+            if (m[2].match(/[,.]/)) {
+              ret = mhchemParser.concatNotUndefined(ret, mhchemParser.go(m[2], 'pu-9,9'));
+            } else {
+              ret.push(m[2]);
+            }
+          }
+          m[3] = m[4] || m[3];
+          if (m[3]) {
+            m[3] = m[3].trim();
+            if (m[3] === "e"  ||  m[3].substr(0, 1) === "*") {
+              ret.push({ type: 'cdot' });
+            } else {
+                ret.push({ type: 'times' });
+            }
           }
         }
-        if (m[2]) {
-          ret.push("10^{"+m[3]+"}");
+        if (m[3]) {
+          ret.push("10^{"+m[5]+"}");
         }
         return ret;
       },
-      'space': function (buffer, m) { return { type: 'pu-space' }; },
+      'number^': function (buffer, m) {
+        var ret = [];
+        if (m[0] === "+-"  ||  m[0] === "+/-") {
+          ret.push("\\pm ");
+        } else if (m[0]) {
+          ret.push(m[0]);
+        }
+        ret = mhchemParser.concatNotUndefined(ret, mhchemParser.go(m[1], 'pu-9,9'));
+        ret.push("^{"+m[2]+"}");
+        return ret;
+      },
+      'operator': function (buffer, m, p1) { return { type: 'operator', kind: (p1 || m) }; },
+      'space': function (buffer, m) { return { type: 'pu-space-1' }; },
       'output': function (buffer, m) {
         var ret;
         var md = mhchemParser.matchh('{(...)}', buffer.d || '');
         if (md  &&  md.remainder === '') { buffer.d = md.matchh; }
         var mq = mhchemParser.matchh('{(...)}', buffer.q || '');
         if (mq  &&  mq.remainder === '') { buffer.q = mq.matchh; }
+        if (buffer.d) {
+            buffer.d = buffer.d.replace(/\u00B0C|\^oC|\^{o}C/g, "{}^{\\circ}C");
+            buffer.d = buffer.d.replace(/\u00B0F|\^oF|\^{o}F/g, "{}^{\\circ}F");
+        }
         if (buffer.q) {  // fraction
-          buffer.d = buffer.d.replace(/\u00B0C|\^oC|\^{o}C/g, "^{\\circ}C");
-          buffer.d = buffer.d.replace(/\u00B0F|\^oF|\^{o}F/g, "^{\\circ}F");
           buffer.d = mhchemParser.go(buffer.d, 'pu');
-          buffer.q = buffer.q.replace(/\u00B0C|\^oC|\^{o}C/g, "^{\\circ}C");
-          buffer.q = buffer.q.replace(/\u00B0F|\^oF|\^{o}F/g, "^{\\circ}F");
+          buffer.q = buffer.q.replace(/\u00B0C|\^oC|\^{o}C/g, "{}^{\\circ}C");
+          buffer.q = buffer.q.replace(/\u00B0F|\^oF|\^{o}F/g, "{}^{\\circ}F");
           buffer.q = mhchemParser.go(buffer.q, 'pu');
           if (buffer.o === '//') {
-            ret = { type: 'frac-r', p1: buffer.d, p2: buffer.q };
+            ret = { type: 'pu-frac', p1: buffer.d, p2: buffer.q };
           } else {
             ret = buffer.d;
             if (buffer.d.length > 1  ||  buffer.q.length > 1) {
@@ -1230,7 +1275,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
             }
             ret = mhchemParser.concatNotUndefined(ret, buffer.q);
           }
-        } else {
+        } else {  // no fraction
           ret = mhchemParser.go(buffer.d, 'pu-2');
         }
         for (var p in buffer) { delete buffer[p]; }
@@ -1244,37 +1289,34 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   mhchemParser.stateMachines['pu-2'] = {
     transitions: mhchemParser.createTransitions({
       'empty': {
-        '0': { action: 'output' },
-        '*': { action: 'output-r' } },
+        '*': { action: 'output' } },
       '*': {
-        '*': { action: [ 'output-r', 'cdot' ], nextState: '1' } },
+        '*': { action: [ 'output', 'cdot' ], nextState: '0' } },
       '\\x': {
-        '*': { action: 'rm=' } },
-      '.|space': {
-        '*': { action: [ 'output-r', 'space' ] } },
-      '^(-1)': {
-        '*': { action: '^(-1)' } },
+        '*': { action: 'rm=' }, nextState: '1' },
+      'space': {
+        '*': { action: [ 'output', 'space' ], nextState: '0' } },
+      '^{(...)}|^(-1)': {
+        '1': { action: '^(-1)' } },
+      '-9.,9': {
+        '0': { action: 'rm=', nextState: '0' },
+        '1': { action: '^(-1)', nextState: '0' } },
       '{...}|else': {
-        '*': { action: 'rm=' } }
+        '*': { action: 'rm=', nextState: '1' } }
     }),
     actions: {
       'cdot': function (buffer, m) { return { type: 'tight cdot' }; },
       '^(-1)': function (buffer, m) { buffer.rm += "^{"+m+"}"; },
-      'space': function (buffer, m) { return { type: 'pu-space' }; },
+      'space': function (buffer, m) { return { type: 'pu-space-2' }; },
       'output': function (buffer, m) {
         var ret;
         if (buffer.rm) {
-          ret = { type: 'rm', p1: buffer.rm };
-        }
-        for (var p in buffer) { delete buffer[p]; }
-        return ret;
-      },
-      'output-r': function (buffer, m) {
-        var ret;
-        if (buffer.rm) {
           var mrm = mhchemParser.matchh('{(...)}', buffer.rm || '');
-          if (mrm  &&  mrm.remainder === '') { buffer.rm = mrm.matchh; }
-          ret = mhchemParser.go(buffer.rm, 'pu');
+          if (mrm  &&  mrm.remainder === '') {
+            ret = mhchemParser.go(mrm.matchh, 'pu');
+          } else {
+            ret = { type: 'rm', p1: buffer.rm };
+          }
         }
         for (var p in buffer) { delete buffer[p]; }
         return ret;
@@ -1430,7 +1472,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           var c = "\\frac{" + buf.p1 + "}{" + buf.p2 + "}";
           return "\\mathchoice{\\textstyle"+c+"}{"+c+"}{"+c+"}{"+c+"}";
        },
-      'frac-r': function (buf) {
+      'pu-frac': function (buf) {
           var c = "\\frac{" + texify.go2(buf.p1) + "}{" + texify.go2(buf.p2) + "}";
           return "\\mathchoice{\\textstyle"+c+"}{"+c+"}{"+c+"}{"+c+"}";
        },
@@ -1510,7 +1552,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     entities: {
       'space': " ",
       'entitySkip': "~",
-      'pu-space': "\\mkern3mu ",
+      'pu-space-1': "~",
+      'pu-space-2': "\\mkern3mu ",
       '1000 separator': "\\mkern2mu ",
       'commaDecimal': "{,}",
       'comma enumeration L': "{{0}}\\mkern6mu ",
@@ -1545,7 +1588,6 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       "<<": " {}\\ll{} ",
       ">>": " {}\\gg{} ",
       "\\pm": " {}\\pm{} ",
-      "$\\pm$": " {}\\pm{} ",
       "\\approx": " {}\\approx{} ",
       "$\\approx$": " {}\\approx{} ",
       "v": " \\downarrow{} ",

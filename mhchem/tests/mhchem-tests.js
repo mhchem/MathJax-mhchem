@@ -235,7 +235,7 @@ testCe('A, B, C; F', '{\\mathrm{A}{,}\\mkern6mu \\mathrm{B}{,}\\mkern6mu \\mathr
 testCe('{and others}', '{{\\text{and others}}}');
 
 /// Complex Examples
-testCe('Zn^2+  <=>[+ 2OH-][+ 2H+]  $\\underset{\\text{amphoteres Hydroxid}}{\\ce{Zn(OH)2 v}}$  <=>[+ 2OH-][+ 2H+]  $\\underset{\\text{Hydroxozikat}}{\\ce{[Zn(OH)4]^2-}}$', '{\\mathrm{Zn}{\\vphantom{X}}^{2+} {}\\mathrel{\\underset{ {}+{} 2\\,\\mathrm{H}{\\vphantom{X}}^{+}}{\\overset{ {}+{} 2\\,\\mathrm{OH}{\\vphantom{X}}^{-}}{\\longrightleftharpoons}}}{} \\underset{\\text{amphoteres Hydroxid}}{\\ce{Zn(OH)2 v}}  {}\\mathrel{\\underset{ {}+{} 2\\,\\mathrm{H}{\\vphantom{X}}^{+}}{\\overset{ {}+{} 2\\,\\mathrm{OH}{\\vphantom{X}}^{-}}{\\longrightleftharpoons}}}{} \\underset{\\text{Hydroxozikat}}{\\ce{[Zn(OH)4]^2-}} }');
+testCe('Zn^2+  <=>[+ 2OH-][+ 2H+]  $\\underset{\\text{amphoteres Hydroxid}}{\\ce{Zn(OH)2 v}}$  <=>[+ 2OH-][+ 2H+]  $\\underset{\\text{Hydroxozikat}}{\\ce{[Zn(OH)4]^2-}}$', '{\\mathrm{Zn}{\\vphantom{X}}^{2+} {}\\mathrel{\\underset{\\lower7mu{ {}+{} 2\\,\\mathrm{H}{\\vphantom{X}}^{+}}}{\\overset{ {}+{} 2\\,\\mathrm{OH}{\\vphantom{X}}^{-}}{\\longrightleftharpoons}}}{} \\underset{\\text{amphoteres Hydroxid}}{\\ce{Zn(OH)2 v}}  {}\\mathrel{\\underset{\\lower7mu{ {}+{} 2\\,\\mathrm{H}{\\vphantom{X}}^{+}}}{\\overset{ {}+{} 2\\,\\mathrm{OH}{\\vphantom{X}}^{-}}{\\longrightleftharpoons}}}{} \\underset{\\text{Hydroxozikat}}{\\ce{[Zn(OH)4]^2-}} }');
 testCe('$K = \\frac{[\\ce{Hg^2+}][\\ce{Hg}]}{[\\ce{Hg2^2+}]}$', '{K = \\frac{[\\ce{Hg^2+}][\\ce{Hg}]}{[\\ce{Hg2^2+}]} }');
 testCe('$K = \\ce{\\frac{[Hg^2+][Hg]}{[Hg2^2+]}}$', '{K =  \\frac{[\\mathrm{Hg}{\\vphantom{X}}^{2+}][\\mathrm{Hg}]}{[\\mathrm{Hg}{\\vphantom{X}}_{\\smash[t]{2}}{\\vphantom{X}}^{2+}]}}');
 testCe('Hg^2+ ->[I-]  $\\underset{\\mathrm{red}}{\\ce{HgI2}}$  ->[I-]  $\\underset{\\mathrm{red}}{\\ce{[Hg^{II}I4]^2-}}$', '{\\mathrm{Hg}{\\vphantom{X}}^{2+} {}\\mathrel{\\xrightarrow{\\mathrm{I}{\\vphantom{X}}^{-}}}{} \\underset{\\mathrm{red}}{\\ce{HgI2}}  {}\\mathrel{\\xrightarrow{\\mathrm{I}{\\vphantom{X}}^{-}}}{} \\underset{\\mathrm{red}}{\\ce{[Hg^{II}I4]^2-}} }');
@@ -246,17 +246,20 @@ testCe('K_P', '{K_{\\mathrm{P}}}');
 testCe('pKa1', '{\\mathrm{p}K_{\\mathrm{a_{1}}}}');
 
 /// \pu
-testPu('123 kJ', '{123\\mkern3mu \\mathrm{kJ}}');
-testPu('123 mm2', '{123\\mkern3mu \\mathrm{mm^{2}}}');
-testPu('123 J s', '{123\\mkern3mu \\mathrm{J}\\mkern3mu \\mathrm{s}}');
-testPu('123 J*s', '{123\\mkern3mu \\mathrm{J}\\mkern1mu{\\cdot}\\mkern1mu \\mathrm{s}}');
-testPu('123 kJ/mol', '{123\\mkern3mu \\mathrm{kJ}/\\mathrm{mol}}');
-testPu('123 kJ//mol', '{123\\mkern3mu \\mathchoice{\\textstyle\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}}');
-testPu('123 kJ mol^-1', '{123\\mkern3mu \\mathrm{kJ}\\mkern3mu \\mathrm{mol^{-1}}}');
-testPu('123 kJ*mol-1', '{123\\mkern3mu \\mathrm{kJ}\\mkern1mu{\\cdot}\\mkern1mu \\mathrm{mol^{-1}}}');
-testPu('1.2e3 kJ', '{1.2\\cdot 10^{3}\\mkern3mu \\mathrm{kJ}}');
-testPu('1,2e3 kJ', '{1{,}2\\cdot 10^{3}\\mkern3mu \\mathrm{kJ}}');
-testPu('1.2E3 kJ', '{1.2\\times 10^{3}\\mkern3mu \\mathrm{kJ}}');
-testPu('1,2E3 kJ', '{1{,}2\\times 10^{3}\\mkern3mu \\mathrm{kJ}}');
+testPu('123 kJ', '{123~\\mathrm{kJ}}');
+testPu('123 mm2', '{123~\\mathrm{mm^{2}}}');
+testPu('123 J s', '{123~\\mathrm{J}\\mkern3mu \\mathrm{s}}');
+testPu('123 J*s', '{123~\\mathrm{J}\\mkern1mu{\\cdot}\\mkern1mu \\mathrm{s}}');
+testPu('123 kJ/mol', '{123~\\mathrm{kJ}/\\mathrm{mol}}');
+testPu('123 kJ//mol', '{123~\\mathchoice{\\textstyle\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}}');
+testPu('123 kJ mol^-1', '{123~\\mathrm{kJ}\\mkern3mu \\mathrm{mol^{-1}}}');
+testPu('123 kJ*mol-1', '{123~\\mathrm{kJ}\\mkern1mu{\\cdot}\\mkern1mu \\mathrm{mol^{-1}}}');
+testPu('1.2e3 kJ', '{1.2\\cdot 10^{3}~\\mathrm{kJ}}');
+testPu('1,2e3 kJ', '{1{,}2\\cdot 10^{3}~\\mathrm{kJ}}');
+testPu('1.2E3 kJ', '{1.2\\times 10^{3}~\\mathrm{kJ}}');
+testPu('1,2E3 kJ', '{1{,}2\\times 10^{3}~\\mathrm{kJ}}');
 testPu('1234', '{1234}');
 testPu('12345', '{12\\mkern2mu 345}');
+testPu('1\u00B0C', '{1~\\mathrm{{}^{\\circ}C}}');
+testPu('23.4782(32) m', '{23.4782(32)~\\mathrm{m}}');
+testPu('8.00001 \\pm 0.00005 nm', '{8.000\\mkern2mu 01 {}\\pm{} 0.000\\mkern2mu 05~\\mathrm{nm}}');
