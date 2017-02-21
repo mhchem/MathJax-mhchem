@@ -286,8 +286,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     '->': /^(?:<->|<-->|->|<-|<=>>|<<=>|<=>|[\u2192\u27F6\u21CC])/,
     'CMT': /^[CMT](?=\[)/,
     '[(...)]': function (input) { return this['_findObserveGroups'](input, "[", "", "", "]"); },
-    '&': /^(&)\s*/,
-    '\\\\': /^(\\\\)\s*/,
+    '1st-level escape': /^(&|\\\\|\\hline)\s*/,
     '\\,': /^(?:\\[,\ ;:])/,  // \\x - but output no space before
     '\\x{}{}':  function (input) { return this['_findObserveGroups'](input, "", /^\\[a-zA-Z]+\{/, "}", "", "", "{", "}", "", true); },
     '\\x{}':  function (input) { return this['_findObserveGroups'](input, "", /^\\[a-zA-Z]+\{/, "}", ""); },
@@ -618,12 +617,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         '1|2': { action: 'sb=true' },
         'r|rt|rd|rdt|rdq': { action: 'output', nextState: '0' },
         '*': { action: [ 'output', 'sb=true' ], nextState: '1'} },
-      '&': {
-        '1|2': { action: [ 'output', 'copy' ] },
-        '*': { action: [ 'output', 'copy' ], nextState: '0' } },
-      '\\\\': {
-        '1|2': { action: [ 'output', 'copy', { type: 'insert', option: 'space' } ] },  // space, so that we don't get \\[
-        '*': { action: [ 'output', 'copy', { type: 'insert', option: 'space' } ], nextState: '0' } },
+      '1st-level escape': {
+        '1|2': { action: [ 'output', { type: 'insert+p1', option: '1st-level escape' } ] },
+        '*': { action: [ 'output', { type: 'insert+p1', option: '1st-level escape' } ], nextState: '0' } },
       '[(...)]': {
         'r|rt': { action: 'rd=', nextState: 'rd' },
         'rd|rdt': { action: 'rq=', nextState: 'rdq' } },
@@ -1347,12 +1343,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     types: {
       'chemfive': function (buf) {
         var res = "";
-        buf.a = texify.go(buf.a);
-        buf.b = texify.go(buf.b);
-        buf.p = texify.go(buf.p);
-        buf.o = texify.go(buf.o);
-        buf.q = texify.go(buf.q);
-        buf.d = texify.go(buf.d);
+        buf.a = texify.go2(buf.a);
+        buf.b = texify.go2(buf.b);
+        buf.p = texify.go2(buf.p);
+        buf.o = texify.go2(buf.o);
+        buf.q = texify.go2(buf.q);
+        buf.d = texify.go2(buf.d);
         //
         // a
         //
@@ -1421,8 +1417,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         }
       },
       'roman numeral': function (buf) { return "\\mathrm{"+buf.p1+"}"; },
-      'state of aggregation': function (buf) { return "\\mskip2mu "+texify.go(buf.p1); },
-      'state of aggregation subscript': function (buf) { return "\\mskip1mu "+texify.go(buf.p1); },
+      'state of aggregation': function (buf) { return "\\mskip2mu "+texify.go2(buf.p1); },
+      'state of aggregation subscript': function (buf) { return "\\mskip1mu "+texify.go2(buf.p1); },
       'bond': function (buf) {
         var ret = texify.bonds[buf.kind];
         if (!ret) {
@@ -1435,31 +1431,31 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           return "\\mathchoice{\\textstyle"+c+"}{"+c+"}{"+c+"}{"+c+"}";
        },
       'frac-r': function (buf) {
-          var c = "\\frac{" + texify.go(buf.p1) + "}{" + texify.go(buf.p2) + "}";
+          var c = "\\frac{" + texify.go2(buf.p1) + "}{" + texify.go2(buf.p2) + "}";
           return "\\mathchoice{\\textstyle"+c+"}{"+c+"}{"+c+"}{"+c+"}";
        },
       'tex-math': function (buf) { return buf.p1 + " "; },
       'frac-ce': function (buf) {
-        return "\\frac{" + texify.go(buf.p1) + "}{" + texify.go(buf.p2) + "}";
+        return "\\frac{" + texify.go2(buf.p1) + "}{" + texify.go2(buf.p2) + "}";
       },
       'overset': function (buf) {
-        return "\\overset{" + texify.go(buf.p1) + "}{" + texify.go(buf.p2) + "}";
+        return "\\overset{" + texify.go2(buf.p1) + "}{" + texify.go2(buf.p2) + "}";
       },
       'underset': function (buf) {
-        return "\\underset{" + texify.go(buf.p1) + "}{" + texify.go(buf.p2) + "}";
+        return "\\underset{" + texify.go2(buf.p1) + "}{" + texify.go2(buf.p2) + "}";
       },
       'underbrace': function (buf) {
-        return "\\underbrace{" + texify.go(buf.p1) + "}_{" + texify.go(buf.p2) + "}";
+        return "\\underbrace{" + texify.go2(buf.p1) + "}_{" + texify.go2(buf.p2) + "}";
       },
       'color': function (buf) {
-        return "{\\color{" + buf.color1 + "}{" + texify.go(buf.color2) + "}}";
+        return "{\\color{" + buf.color1 + "}{" + texify.go2(buf.color2) + "}}";
       },
       'color0': function (buf) {
         return "\\color{" + buf.color + "}";
       },
       'arrow': function (buf) {
-        buf.rd = texify.go(buf.rd);
-        buf.rq = texify.go(buf.rq);
+        buf.rd = texify.go2(buf.rd);
+        buf.rq = texify.go2(buf.rq);
         var arrow = texify.arrows[buf.r];
         if (buf.rd || buf.rq) {
           if (buf.r === "<=>"  ||  buf.r === "<=>>"  ||  buf.r === "<<=>"  ||  buf.r === "<-->") {
@@ -1537,7 +1533,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       'pKa1': "\\mathrm{p}K_{\\mathrm{{0}_{{1}}}}",
       'Ka1': "K_{\\mathrm{{0}_{{1}}}}",
       '/': "/",
-      ' / ': "\\,/\\,"
+      ' / ': "\\,/\\,",
+      '1st-level escape': "{0} "  // &, \\\\, \\hline
     },
     operators: {
       "+": " {}+{} ",
@@ -1557,9 +1554,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       "(^)": " \\uparrow{} "
     },
 
-    go: function (input) {
+    go: function (input, isInner) {
       if (!input) { return input; }
       var res = "";
+      var cee = false;
       for (var i=0; i<input.length; i++) {
         var inputi = input[i];
         if (typeof inputi === "string") {
@@ -1571,11 +1569,18 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           a = a.replace("{0}", inputi.p1 || "");
           a = a.replace("{1}", inputi.p2 || "");
           res += a;
+          if (inputi.type === '1st-level escape') { cee = true; }
         } else {
           throw ["MhchemBugT", "mhchem bug T. Please report."];  // Missing texify rule or unknown MhchemParser output
         }
       }
+      if (!isInner && !cee) {
+        res = "{" + res + "}";
+      }
       return res;
+    },
+    go2: function(input) {
+      return this.go(input, true);
     }
   };
 
