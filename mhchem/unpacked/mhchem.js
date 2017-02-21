@@ -1500,10 +1500,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       "#": "{\\equiv}",
       "3": "{\\equiv}",
       "~": "{\\tripledash}",
-      "~-": "{\\begin{CEstack}{}\\tripledash\\\\-\\end{CEstack}}",
-      "~=": "{\\raise2mu {\\begin{CEstack}{}\\tripledash\\\\-\\\\-\\end{CEstack}}}",
-      "~--": "{\\raise2mu {\\begin{CEstack}{}\\tripledash\\\\-\\\\-\\end{CEstack}}}",
-      "-~-": "{\\raise2mu {\\begin{CEstack}{}-\\\\\\tripledash\\\\-\\end{CEstack}}}",
+      "~-": "{\\rlap{\\lower.1em{-}}\\raise.1em{\\tripledash}}",
+      "~=": "{\\rlap{\\lower.2em{-}}\\rlap{\\raise.2em{\\tripledash}}-}",
+      "~--": "{\\rlap{\\lower.2em{-}}\\rlap{\\raise.2em{\\tripledash}}-}",
+      "-~-": "{\\rlap{\\lower.2em{-}}\\rlap{\\raise.2em{-}}\\tripledash}",
       "...": "{{\\cdot}{\\cdot}{\\cdot}}",
       "....": "{{\\cdot}{\\cdot}{\\cdot}{\\cdot}}",
       "->": "{\\rightarrow}",
@@ -1607,16 +1607,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 
       //
       //  Needed for \bond for the ~ forms
+      //  Not perfectly aligned when zoomed in, but on 100%
       //
-      tripledash: ["Macro","\\raise3mu{\\tiny\\text{-}\\kern2mu\\text{-}\\kern2mu\\text{-}}"]
+      tripledash: ["Macro","\\vphantom{-}\\raise2mu{\\kern2mu\\tiny\\text{-}\\kern1mu\\text{-}\\kern1mu\\text{-}\\kern2mu}"]
     },
-
-    //
-    //  Needed for \bond for the ~ forms
-    //
-    environment: {
-      CEstack:       ["Array",null,null,null,"r",null,"0.001em","T",1]
-    }
   },null,true);
 
   if (!MathJax.Extension["TeX/AMSmath"]) {

@@ -190,8 +190,8 @@ testCe('C6H5-CHO', '\\mathrm{C}{\\vphantom{X}}_{\\smash[t]{6}}\\mathrm{H}{\\vpha
 testCe('A-B=C#D', '\\mathrm{A}{-}\\mathrm{B}{=}\\mathrm{C}{\\equiv}\\mathrm{D}');
 testCe('A\\bond{-}B\\bond{=}C\\bond{#}D', '\\mathrm{A}{-}\\mathrm{B}{=}\\mathrm{C}{\\equiv}\\mathrm{D}');
 testCe('A\\bond{1}B\\bond{2}C\\bond{3}D', '\\mathrm{A}{-}\\mathrm{B}{=}\\mathrm{C}{\\equiv}\\mathrm{D}');
-testCe('A\\bond{~}B\\bond{~-}C', '\\mathrm{A}{\\tripledash}\\mathrm{B}{\\begin{CEstack}{}\\tripledash\\\\-\\end{CEstack}}\\mathrm{C}');
-testCe('A\\bond{~--}B\\bond{~=}C\\bond{-~-}D', '\\mathrm{A}{\\raise2mu {\\begin{CEstack}{}\\tripledash\\\\-\\\\-\\end{CEstack}}}\\mathrm{B}{\\raise2mu {\\begin{CEstack}{}\\tripledash\\\\-\\\\-\\end{CEstack}}}\\mathrm{C}{\\raise2mu {\\begin{CEstack}{}-\\\\\\tripledash\\\\-\\end{CEstack}}}\\mathrm{D}');
+testCe('A\\bond{~}B\\bond{~-}C', '\\mathrm{A}{\\tripledash}\\mathrm{B}{\\rlap{\\lower.1em{-}}\\raise.1em{\\tripledash}}\\mathrm{C}');
+testCe('A\\bond{~--}B\\bond{~=}C\\bond{-~-}D', '\\mathrm{A}{\\rlap{\\lower.2em{-}}\\rlap{\\raise.2em{\\tripledash}}-}\\mathrm{B}{\\rlap{\\lower.2em{-}}\\rlap{\\raise.2em{\\tripledash}}-}\\mathrm{C}{\\rlap{\\lower.2em{-}}\\rlap{\\raise.2em{-}}\\tripledash}\\mathrm{D}');
 testCe('A\\bond{...}B\\bond{....}C', '\\mathrm{A}{{\\cdot}{\\cdot}{\\cdot}}\\mathrm{B}{{\\cdot}{\\cdot}{\\cdot}{\\cdot}}\\mathrm{C}');
 testCe('A\\bond{->}B\\bond{<-}C', '\\mathrm{A}{\\rightarrow}\\mathrm{B}{\\leftarrow}\\mathrm{C}');
 
