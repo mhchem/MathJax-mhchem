@@ -1462,11 +1462,11 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         buf.rq = texify.go(buf.rq);
         var arrow = texify.arrows[buf.r];
         if (buf.rd || buf.rq) {
-          if (buf.r === "<=>>"  ||  buf.r === "<<=>"  ||  buf.r === "<-->") {
-            // arrows that cannot stretch correctly, https://github.com/mathjax/MathJax/issues/1491
+          if (buf.r === "<=>"  ||  buf.r === "<=>>"  ||  buf.r === "<<=>"  ||  buf.r === "<-->") {
+            // arrows that cannot stretch correctly yet, https://github.com/mathjax/MathJax/issues/1491
             arrow = "\\long"+arrow;
             if (buf.rd) { arrow = "\\overset{"+buf.rd+"}{"+arrow+"}"; }
-            if (buf.rq) { arrow = "\\underset{"+buf.rq+"}{"+arrow+"}"; }
+            if (buf.rq) { arrow = "\\underset{\\lower7mu{"+buf.rq+"}}{"+arrow+"}"; }
             arrow = " {}\\mathrel{"+arrow+"}{} ";
           } else {
             if (buf.rq) { arrow += "[{"+buf.rq+"}]"; }
@@ -1600,9 +1600,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       xLeftrightharpoons: ["Extension","AMSmath"],
 
       //  FIXME:  These don't work well in FF NativeMML mode
-      longrightleftharpoons: ["Macro","\\stackrel{\\textstyle{{-}\\!\\!{\\rightharpoonup}}}{\\smash{{\\leftharpoondown}\\!\\!{-}}}"],
-      longRightleftharpoons: ["Macro","\\stackrel{\\textstyle{-}\\!\\!{\\rightharpoonup}}{\\small\\smash\\leftharpoondown}"],
-      longLeftrightharpoons: ["Macro","\\stackrel{\\rightharpoonup}{{{\\leftharpoondown}\\!\\!\\textstyle{-}}}"],
+      longrightleftharpoons: ["Macro","\\stackrel{\\textstyle{-}\\!\\!{\\rightharpoonup}}{\\smash{{\\leftharpoondown}\\!\\!{-}}}"],
+      longRightleftharpoons: ["Macro","\\stackrel{\\textstyle{-}\\!\\!{\\rightharpoonup}}{\\smash{\\leftharpoondown}}"],
+      longLeftrightharpoons: ["Macro","\\stackrel{\\textstyle\\vphantom{{-}}{\\rightharpoonup}}{\\smash{{\\leftharpoondown}\\!\\!{-}}}"],
       longleftrightarrows: ["Macro","\\stackrel{\\longrightarrow}{\\smash{\\longleftarrow}\\Rule{0px}{.25em}{0px}}"],
 
       //
