@@ -5,6 +5,9 @@
 // which will invoke
 //   node tests/mhchem-tests.js
 //
+// in order to use unpacked file
+//   node tests/mhchem-tests.js unpacked
+//
 // in order to diff to CDN version
 //   node tests/mhchem-tests.js diff
 
@@ -12,6 +15,7 @@ var tape = require('tape');
 var vm = require('vm');
 var fs = require('fs');
 var diff = (process.argv[2] == 'diff' ? true : false);
+var unpacked = (process.argv[2] == 'unpacked' ? true : false);
 
 /// create dummy MathJax object
 var context = {
@@ -31,7 +35,11 @@ var context = {
 };
 
 /// load mhchem parser into dummy MathJax
-vm.runInNewContext(fs.readFileSync('./mhchem.js'), context);
+if (unpacked) {
+  vm.runInNewContext(fs.readFileSync('./unpacked/mhchem.js'), context);
+} else {
+  vm.runInNewContext(fs.readFileSync('./mhchem.js'), context);
+}
 var CE = context.MathJax.Extension['TeX/mhchem'].CE;
 var ce = function(a) {
   CE.Init(a);

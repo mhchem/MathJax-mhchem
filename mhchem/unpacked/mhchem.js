@@ -33,7 +33,7 @@
 
 
 MathJax.Extension["TeX/mhchem"] = {
-  version: "3.0.5"
+  version: "3.0.6"
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
@@ -759,7 +759,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           ret = mhchemParser.concatNotUndefined(ret, this['output'](buffer, m));
           ret = mhchemParser.concatNotUndefined(ret, { type: 'hyphen' });
         } else {
-          var c1 = mhchemParser.matchh('digits', buffer.d || '');
+          var c1 = mhchemParser.matchh('digits', buffer.d || "");
           if (c1 && c1.remainder==='') {
             ret = mhchemParser.concatNotUndefined(null, mhchemParser.actions['d='](buffer, m));
             ret = mhchemParser.concatNotUndefined(ret, this['output'](buffer));
@@ -771,10 +771,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         return ret;
       },
       '_hyphenFollows': function (buffer, m) {
-        var c1 = mhchemParser.matchh('orbital', buffer.o || '');
-        var c2 = mhchemParser.matchh('one lowercase greek letter $', buffer.o || '');
-        var c3 = mhchemParser.matchh('one lowercase latin letter $', buffer.o || '');
-        var c4 = mhchemParser.matchh('$one lowercase latin letter$ $', buffer.o || '');
+        var c1 = mhchemParser.matchh('orbital', buffer.o || "");
+        var c2 = mhchemParser.matchh('one lowercase greek letter $', buffer.o || "");
+        var c3 = mhchemParser.matchh('one lowercase latin letter $', buffer.o || "");
+        var c4 = mhchemParser.matchh('$one lowercase latin letter$ $', buffer.o || "");
         var hyphenFollows =  m==="-" && ( c1 && c1.remainder===''  ||  c2  ||  c3  ||  c4 );
         if (hyphenFollows && !buffer.a && !buffer.b && !buffer.p && !buffer.d && !buffer.q && !c1 && c3) {
           buffer.o = '$' + buffer.o + '$';
@@ -827,7 +827,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
               buffer.q = buffer.p;
               buffer.a = buffer.b = buffer.p = undefined;
             } else {
-              if (buffer.o && buffer['d-type']==='kv' && mhchemParser.matchh('d-oxidation$', buffer.d || '')) {
+              if (buffer.o && buffer['d-type']==='kv' && mhchemParser.matchh('d-oxidation$', buffer.d || "")) {
                 buffer['d-type'] = 'oxidation';
               } else if (buffer.o && buffer['d-type']==='kv' && !buffer.q) {
                 buffer['d-type'] = undefined;
@@ -904,11 +904,11 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       'color-output': function (buffer, m) {
         return { type: 'color', color1: m[0], color2: mhchemParser.go(m[1]) };
       },
-      'r=': function (buffer, m) { buffer.r = (buffer.r || '') + m; },
-      'rdt=': function (buffer, m) { buffer.rdt = (buffer.rdt || '') + m; },
-      'rd=': function (buffer, m) { buffer.rd = (buffer.rd || '') + m; },
-      'rqt=': function (buffer, m) { buffer.rqt = (buffer.rqt || '') + m; },
-      'rq=': function (buffer, m) { buffer.rq = (buffer.rq || '') + m; },
+      'r=': function (buffer, m) { buffer.r = (buffer.r || "") + m; },
+      'rdt=': function (buffer, m) { buffer.rdt = (buffer.rdt || "") + m; },
+      'rd=': function (buffer, m) { buffer.rd = (buffer.rd || "") + m; },
+      'rqt=': function (buffer, m) { buffer.rqt = (buffer.rqt || "") + m; },
+      'rq=': function (buffer, m) { buffer.rq = (buffer.rq || "") + m; },
       'operator': function (buffer, m, p1) { return { type: 'operator', kind: (p1 || m) }; }
     }
   };
@@ -1145,7 +1145,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         '*': { action: 'o=' } }
     }),
     actions: {
-      'tight operator': function (buffer, m) { buffer.o = (buffer.o || '') + '{'+m+'}'; },
+      'tight operator': function (buffer, m) { buffer.o = (buffer.o || "") + "{"+m+"}"; },
       'output': function (buffer, m) {
         if (buffer.o) {
           var ret = { type: 'tex-math', p1: buffer.o };
@@ -1251,9 +1251,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       'space': function (buffer, m) { return { type: 'pu-space-1' }; },
       'output': function (buffer, m) {
         var ret;
-        var md = mhchemParser.matchh('{(...)}', buffer.d || '');
+        var md = mhchemParser.matchh('{(...)}', buffer.d || "");
         if (md  &&  md.remainder === '') { buffer.d = md.matchh; }
-        var mq = mhchemParser.matchh('{(...)}', buffer.q || '');
+        var mq = mhchemParser.matchh('{(...)}', buffer.q || "");
         if (mq  &&  mq.remainder === '') { buffer.q = mq.matchh; }
         if (buffer.d) {
             buffer.d = buffer.d.replace(/\u00B0C|\^oC|\^{o}C/g, "{}^{\\circ}C");
@@ -1311,7 +1311,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       'output': function (buffer, m) {
         var ret;
         if (buffer.rm) {
-          var mrm = mhchemParser.matchh('{(...)}', buffer.rm || '');
+          var mrm = mhchemParser.matchh('{(...)}', buffer.rm || "");
           if (mrm  &&  mrm.remainder === '') {
             ret = mhchemParser.go(mrm.matchh, 'pu');
           } else {
