@@ -22,7 +22,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-MathJax.Extension["TeX/mhchem"]={version:"3.0.6"},MathJax.Hub.Register.StartupHook("TeX Jax Ready",
+MathJax.Extension["TeX/mhchem"]={version:"3.1.0"},MathJax.Hub.Register.StartupHook("TeX Jax Ready",
 function(){var n=MathJax.InputJax.TeX,r=MathJax.Object.Subclass({string:"",Init:
 function(n){this.string=n},Parse:
 function(r){try{return o.go(t.go(this.string,r))}catch(r){n.Error(r)}}}),t={};t.go=
@@ -332,5 +332,5 @@ null,!0),MathJax.Hub.Register.StartupHook("TeX AMSmath Ready",
 function(){n.Definitions.Add({macros:{xleftrightarrow:["xArrow",8596,6,6],xrightleftharpoons:["xArrow",8652,5,7],xRightleftharpoons:["xArrow",8652,5,7],xLeftrightharpoons:["xArrow",8652,5,7]}},
 null,!0)}),n.Parse.Augment({CE:
 function(n){var t=this.GetArgument(n),o=r(t).Parse();this.string=o+this.string.substr(this.i),this.i=0},PU:
-function(n){var t=this.GetArgument(n),o=r(t).Parse("pu");this.string=o+this.string.substr(this.i),this.i=0}}),MathJax.Hub.Startup.signal.Post("TeX mhchem Ready")}),MathJax.Ajax.loadComplete("[Contrib]/mhchem/mhchem.js");
+function(n){var t=this.GetArgument(n),o=r(t).Parse("pu");this.string=o+this.string.substr(this.i),this.i=0}}),MathJax.Hub.Startup.signal.Post("TeX mhchem Ready")}),MathJax.Ajax.loadComplete("[mhchem]/mhchem.js");
 
