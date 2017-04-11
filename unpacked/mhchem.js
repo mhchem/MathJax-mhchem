@@ -33,7 +33,7 @@
 
 
 MathJax.Extension["TeX/mhchem"] = {
-  version: "3.0.6"
+  version: "3.1.0"
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
@@ -1712,4 +1712,4 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 
 });
 
-MathJax.Ajax.loadComplete("[Contrib]/mhchem/unpacked/mhchem.js");
+MathJax.Ajax.loadComplete("[mhchem]/unpacked/mhchem.js");

@@ -1,15 +1,24 @@
 {
-  "name": "mathjax-mhchem-test",
-  "version": "1.0.0",
-  "description": "Test suite for MathJax/mhchem extension",
-  "scripts": {
-    "test": "tape tests/*.js"
-  },
-  "author": "Martin Hensel",
+  "name": "mathjax-mhchem",
+  "filename": "mhchem.js",
+  "version": "3.1.0",
+  "description": "mhchem extension for MathJax",
+  "keywords": [
+    "MathJax",
+    "LaTeX",
+    "Chemistry"
+  ],
   "license": "Apache-2.0",
+  "contributors": [
+    "Martin Hensel",
+    "The MathJax Consortium"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/mhchem/MathJax-mhchem.git"
+  },
+  "scripts": {
+    "test": "tape tests/*.js"
   },
   "devDependencies": {
     "tape": "^4.0.3",
