@@ -1,6 +1,6 @@
-# MathJax/mhchem Extension 3.1
+# MathJax/mhchem Extension 3.2
 
-mhchem 3.1 is a 3rd-party extension to MathJax for typesetting chemical equations.
+mhchem 3.2 is a 3rd-party extension to MathJax for typesetting chemical equations.
 
 
 ## Usage
