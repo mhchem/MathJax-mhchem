@@ -1,4 +1,5 @@
 # MathJax/mhchem Extension 3.2
+[![CDNJS](https://img.shields.io/cdnjs/v/mathjax-mhchem.svg)](https://cdnjs.com/libraries/mathjax-mhchem)
 
 mhchem 3.2 is a 3rd-party extension to MathJax for typesetting chemical equations.
 
