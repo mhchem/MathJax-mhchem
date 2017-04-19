@@ -235,7 +235,6 @@ testCe('A v B (v) -> B ^ B (^)', '{\\mathrm{A} \\downarrow{} ~\\mathrm{B} \\down
 /// Other Symbols and Shortcuts
 testCe('NO^*', '{\\mathrm{NO}{\\vphantom{X}}^{*}}');
 testCe('1s^2-N', '{1\\mathrm{s}{\\vphantom{X}}^{2}\\text{-}\\mathrm{N}}');
-testCe('pKa', '{\\mathrm{p}K_{\\mathrm{a}}}');
 testCe('n-Pr', '{n \\text{-}\\mathrm{Pr}}');
 testCe('iPr', '{\\mathrm{iPr}}');
 testCe('\\ca Fe', '{{\\sim}\\mathrm{Fe}}');
@@ -247,11 +246,6 @@ testCe('Zn^2+  <=>[+ 2OH-][+ 2H+]  $\\underset{\\text{amphoteres Hydroxid}}{\\ce
 testCe('$K = \\frac{[\\ce{Hg^2+}][\\ce{Hg}]}{[\\ce{Hg2^2+}]}$', '{K = \\frac{[\\ce{Hg^2+}][\\ce{Hg}]}{[\\ce{Hg2^2+}]} }');
 testCe('$K = \\ce{\\frac{[Hg^2+][Hg]}{[Hg2^2+]}}$', '{K =  \\frac{[\\mathrm{Hg}{\\vphantom{X}}^{2+}][\\mathrm{Hg}]}{[\\mathrm{Hg}{\\vphantom{X}}_{\\smash[t]{2}}{\\vphantom{X}}^{2+}]}}');
 testCe('Hg^2+ ->[I-]  $\\underset{\\mathrm{red}}{\\ce{HgI2}}$  ->[I-]  $\\underset{\\mathrm{red}}{\\ce{[Hg^{II}I4]^2-}}$', '{\\mathrm{Hg}{\\vphantom{X}}^{2+} {}\\mathrel{\\xrightarrow{\\mathrm{I}{\\vphantom{X}}^{-}}}{} \\underset{\\mathrm{red}}{\\ce{HgI2}}  {}\\mathrel{\\xrightarrow{\\mathrm{I}{\\vphantom{X}}^{-}}}{} \\underset{\\mathrm{red}}{\\ce{[Hg^{II}I4]^2-}} }');
-
-/// Others
-testCe('K_f', '{K_{\\mathrm{f}}}');
-testCe('K_P', '{K_{\\mathrm{P}}}');
-testCe('pKa1', '{\\mathrm{p}K_{\\mathrm{a_{1}}}}');
 
 /// \pu
 testPu('123 kJ', '{123~\\mathrm{kJ}}');
