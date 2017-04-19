@@ -3,7 +3,7 @@
 <head>
   <script src="https://cdn.jsdelivr.net/markdown-it/7.0.0/markdown-it.min.js"></script>
   <script type="text/x-mathjax-config">
-    MathJax.Ajax.config.path["mhchem"] = "https://mhchem.github.io/MathJax-mhchem";
+    MathJax.Ajax.config.path["mhchem"] = "https://cdn.rawgit.com/mhchem/MathJax-mhchem/fae3ec0a";
     MathJax.Hub.Config({
       tex2jax: {
         ignoreClass: "tex2jax_ignore",
@@ -61,16 +61,20 @@
 
 mhchem is a tool for writing beautiful chemical equations easily.
 
-This is the manual for mhchem's input syntax. It covers version 3.1.x of MathJax/mhchem.
+This is the manual for mhchem's input syntax. It covers version 3.2.x of MathJax/mhchem.
 
 mhchem is a third-party extension for [MathJax](https://mathjax.org/).
 For information on how to load the extension and make the `\ce` command available,
 see the [official MathJax docs](http://docs.mathjax.org/en/latest/configuration.html#using-in-line-configuration-options).
 In short, use this config:
 
-    TeX: {
-        extensions: ["[Contrib]/mhchem/mhchem.js"]
-    }
+    MathJax.Ajax.config.path["mhchem"] =
+      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.1.0";
+    MathJax.Hub.Config({
+      TeX: {
+        extensions: ["[mhchem]/mhchem.js"]
+      }
+    });
 
 ## Chemical Equations (ce)
 :::: CO2 + C -> 2 CO
@@ -214,7 +218,7 @@ mhchem tries to differentiate whether `\ce{-}` should be a bond, a charge or a h
 ## Other Symbols and Shortcuts <small>(not fully supported by LaTeX/mhchem yet)</small>
 :::: NO^* % Excited state
 :::: 1s^2-N % Orbitals
-:::: pKa % Dissociation constant
+#:::: pKa % Dissociation constant
 :::: n-Pr
 :::: iPr
 :::: \ca Fe
