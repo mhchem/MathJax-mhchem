@@ -3,7 +3,7 @@
 <head>
   <script src="https://cdn.jsdelivr.net/markdown-it/7.0.0/markdown-it.min.js"></script>
   <script type="text/x-mathjax-config">
-    MathJax.Ajax.config.path["mhchem"] = "https://cdn.rawgit.com/mhchem/MathJax-mhchem/fae3ec0a";
+    MathJax.Ajax.config.path["mhchem"] = "https://cdn.rawgit.com/mhchem/MathJax-mhchem/8ff6cbde";  // v3.2.0
     MathJax.Hub.Config({
       tex2jax: {
         ignoreClass: "tex2jax_ignore",
@@ -50,6 +50,7 @@
     .footer { margin-top: 2rem; text-align: center; color: #ccc; }
     .hidden { display: none; }
   </style>
+  <title>MathJax/mhchem Manual</title>
 </head>
 <body>
   <div class="hidden">$\definecolor{example}{RGB}{163,62,0}$</div>
@@ -57,7 +58,7 @@
   <div id="md">Please ensure Internet access and enable JavaScript.</div>
   <textarea id="ta" class="hidden">
 
-# MathJax/mhchem Syntax
+# MathJax/mhchem Manual
 
 mhchem is a tool for writing beautiful chemical equations easily.
 
@@ -69,7 +70,7 @@ see the [official MathJax docs](http://docs.mathjax.org/en/latest/configuration.
 In short, use this config:
 
     MathJax.Ajax.config.path["mhchem"] =
-      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.1.0";
+      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.2.0";
     MathJax.Hub.Config({
       TeX: {
         extensions: ["[mhchem]/mhchem.js"]
@@ -261,12 +262,10 @@ If you have a question and cannot find an answer---neither here nor with a web s
 - ask at StackExchange (http://meta.chemistry.stackexchange.com/) with the mhchem tag.
 
 ## Test Drive
-  </div>
-  <div id="demo" class="hidden">
-    <div id="output">$\color{example}\ce{H2O}$</div>
-    <textarea id="input">\ce{H2O}</textarea>
-  </div>
-  <div class="footer">&#9632;</div>
+:testdrive:
+
+<div class="footer">&#9632;</div>
+
   </textarea>
   <script>
   //<![CDATA[
@@ -289,6 +288,7 @@ If you have a question and cannot find an answer---neither here nor with a web s
     var m = 'nH&#x0065;ns&#x0065;&#x006C;&#x002E;d&#x0065;';
     m = 'mhch&#x0065;m&#x0040;M&#97;rt&#x0069;' + m;
     a = a.replace(':myaddress:', '<a href="&#x006D;&#97;&#x0069;&#x006C;&#x0074;&#x006F;&#x003A;'+m+'">'+m+'</a>');
+    a = a.replace(':testdrive:', '<div id="demo" class="hidden"><div id="output">$\\color{example}\\ce{H2O}$</div><textarea id="input">\\ce{H2O}</textarea></div>');
     document.getElementById('md').innerHTML = a;
 
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,"md"]);
