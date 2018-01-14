@@ -7,14 +7,10 @@
 //
 // in order to use unpacked file
 //   node tests/mhchem-tests.js unpacked
-//
-// in order to diff to CDN version
-//   node tests/mhchem-tests.js diff
 
 var tape = require('tape');
 var vm = require('vm');
 var fs = require('fs');
-var diff = (process.argv[2] == 'diff' ? true : false);
 var unpacked = (process.argv[2] == 'unpacked' ? true : false);
 
 /// create dummy MathJax object
@@ -50,54 +46,16 @@ var pu = function(a) {
   return CE.Parse('pu');
 }
 
-/// load CDN mhchem
-var ceCdn;
-if (diff) {
-  tape('Setup diff mode - load mhchem parser from CDN', function(t) {
-    var request = require('request');
-    request('https://cdn.mathjax.org/mathjax/contrib/mhchem/mhchem.js', function (err, res, body) {
-      if (err || !body) {
-        t.fail('Cannot load mhchem from CDN');
-        t.end();
-      } else {
-        vm.runInNewContext(body, context);
-        var CE2 = context.MathJax.Extension['TeX/mhchem'].CE;
-        ceCdn = function(a) {
-          CE2.Init(a);
-          return CE2.Parse();
-        }
-        t.end();
-      }
-    });
-  });
-}
-
 /// create tests
 function testCe(input, expected) {
   tape(input, function(t) {
-    if (diff) {
-      if (ceCdn) {
-        var r2 = ceCdn(input);
-        t.comment(r2);
-        t.equal(ce(input), r2);
-      }
-    } else {
-      t.equal(ce(input), expected);
-    }
+    t.equal(ce(input), expected);
     t.end();
   });
 }
 function testPu(input, expected) {
   tape(input, function(t) {
-    if (diff) {
-      if (puCdn) {
-        var r2 = puCdn(input);
-        t.comment(r2);
-        t.equal(pu(input), r2);
-      }
-    } else {
-      t.equal(pu(input), expected);
-    }
+    t.equal(pu(input), expected);
     t.end();
   });
 }
