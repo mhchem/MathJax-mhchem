@@ -214,6 +214,7 @@ testPu('123 kJ/mol', '{123~\\mathrm{kJ}/\\mathrm{mol}}');
 testPu('123 kJ//mol', '{123~\\mathchoice{\\textstyle\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}}');
 testPu('123 kJ mol^-1', '{123~\\mathrm{kJ}\\mkern3mu \\mathrm{mol^{-1}}}');
 testPu('123 kJ*mol-1', '{123~\\mathrm{kJ}\\mkern1mu{\\cdot}\\mkern1mu \\mathrm{mol^{-1}}}');
+testPu('123 kJ.mol-1', '{123~\\mathrm{kJ}\\mkern1mu{\\cdot}\\mkern1mu \\mathrm{mol^{-1}}}');
 testPu('1.2e3 kJ', '{1.2\\cdot 10^{3}~\\mathrm{kJ}}');
 testPu('1,2e3 kJ', '{1{,}2\\cdot 10^{3}~\\mathrm{kJ}}');
 testPu('1.2E3 kJ', '{1.2\\times 10^{3}~\\mathrm{kJ}}');
@@ -223,3 +224,7 @@ testPu('12345', '{12\\mkern2mu 345}');
 testPu('1\u00B0C', '{1~\\mathrm{{}^{\\circ}C}}');
 testPu('23.4782(32) m', '{23.4782(32)~\\mathrm{m}}');
 testPu('8.00001 \\pm 0.00005 nm', '{8.000\\mkern2mu 01 {}\\pm{} 0.000\\mkern2mu 05~\\mathrm{nm}}');
+testPu('.25', '{.25}');
+testPu('1 mol ', '{1~\\mathrm{mol}~}');
+testPu('123 l//100km', '{123~\\mathchoice{\\textstyle\\frac{\\mathrm{l}}{100~\\mathrm{km}}}{\\frac{\\mathrm{l}}{100~\\mathrm{km}}}{\\frac{\\mathrm{l}}{100~\\mathrm{km}}}{\\frac{\\mathrm{l}}{100~\\mathrm{km}}}}');
+

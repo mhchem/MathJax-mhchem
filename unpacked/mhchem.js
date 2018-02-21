@@ -218,6 +218,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         'else2': /^./,
         'space': /^\s/,
         'space A': /^\s(?=[A-Z\\$])/,
+        'space$': /^\s$/,
         'a-z': /^[a-z]/,
         'x': /^x/,
         'x$': /^x$/,
@@ -231,7 +232,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         '-9.,9': /^[+\-]?(?:[0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))/,
         '-9.,9 no missing 0': /^[+\-]?[0-9]+(?:[.,][0-9]+)?/,
         '(-)(9.,9)(e)(99)': function (input) {
-          var m = input.match(/^(\+\-|\+\/\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+)?)(\((?:[0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+)?)\))?(?:([eE]|\s*(\*|x|\\times|\u00D7)\s*10\^)([+\-]?[0-9]+|\{[+\-]?[0-9]+\}))?/);
+          var m = input.match(/^(\+\-|\+\/\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))?(\((?:[0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))\))?(?:([eE]|\s*(\*|x|\\times|\u00D7)\s*10\^)([+\-]?[0-9]+|\{[+\-]?[0-9]+\}))?/);
           if (m && m[0]) {
             return { match_: m.splice(1), remainder: input.substr(m[0].length) };
           }
@@ -346,7 +347,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         'uprightEntities': /^(?:pH|pOH|pC|pK|iPr|iBu)(?=$|[^a-zA-Z])/,
         '/': /^\s*(\/)\s*/,
         '//': /^\s*(\/\/)\s*/,
-        '*': /^\s*\*\s*/
+        '*': /^\s*[*.]\s*/
       },
       findObserveGroups: function (input, begExcl, begIncl, endIncl, endExcl, beg2Excl, beg2Incl, end2Incl, end2Excl, combine) {
         /** @type {{(input: string, pattern: string | RegExp): string | string[] | null;}} */
@@ -1145,7 +1146,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       transitions: mhchemParser.createTransitions({
         'empty': {
           '*': { action_: 'output' } },
-        '\{[(|)]\}': {
+        'space$': {
+          '*': { action_: [ 'output', 'space' ] } },
+        '{[(|)]}': {
           '0|a': { action_: 'copy' } },
         '(-)(9)^(-9)': {
           '0': { action_: 'number^', nextState: 'a' } },
