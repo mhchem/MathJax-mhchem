@@ -1,6 +1,6 @@
-# MathJax/mhchem Extension 3.2
+# MathJax/mhchem Extension 3.3
 
-mhchem 3.2 is a 3rd-party extension to MathJax for typesetting chemical equations.
+mhchem 3.3 is a 3rd-party extension to MathJax for typesetting chemical equations.
 
 
 ## Usage
@@ -13,15 +13,19 @@ mhchem 3.2 is a 3rd-party extension to MathJax for typesetting chemical equation
 [The manual (including a live test drive)](https://mhchem.github.io/MathJax-mhchem/)
 
 
-## Using the MathJax CDN
+## Using cdnjs
 
 For information on how to load the extension and make the `\ce` command available,
 see the [official MathJax docs](http://docs.mathjax.org/en/latest/configuration.html#using-in-line-configuration-options).
 In short, use this config:
 
-    TeX: {
-        extensions: ["[Contrib]/mhchem/mhchem.js"]
-    }
+    MathJax.Ajax.config.path["mhchem"] =
+      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0";
+    MathJax.Hub.Config({
+      TeX: {
+        extensions: ["[mhchem]/mhchem.js"]
+      }
+    });
 
 ## Changes of v3.0.x (when compared to v2.6.0 "legacy: true")
 

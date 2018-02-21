@@ -1,7 +1,7 @@
 {
   "name": "mathjax-mhchem",
   "filename": "mhchem.js",
-  "version": "3.1.0",
+  "version": "3.3.0",
   "description": "mhchem extension for MathJax",
   "keywords": [
     "MathJax",
