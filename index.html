@@ -3,7 +3,7 @@
 <head>
   <script src="https://cdn.jsdelivr.net/markdown-it/7.0.0/markdown-it.min.js"></script>
   <script type="text/x-mathjax-config">
-    MathJax.Ajax.config.path["mhchem"] = "https://cdn.rawgit.com/mhchem/MathJax-mhchem/8ff6cbde";  // v3.2.0
+    MathJax.Ajax.config.path["mhchem"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0";
     MathJax.Hub.Config({
       tex2jax: {
         ignoreClass: "tex2jax_ignore",
@@ -28,7 +28,7 @@
     h1 { font-family: 'Alegreya',serif; font-weight: 700; font-size: 180%; margin: 2rem 0 2rem; border-bottom: 1px solid #999;}
     h2 { font-family: 'Alegreya SC',serif; font-weight: 400; font-size: 140%; text-transform: lowercase; margin: 3.5rem 0 1rem; word-spacing: 0.3rem; }
     h2 > strong { font-family: 'Alegreya',serif; text-transform: none; font-variant: inherit; font-size: 90%; }
-    h2 > small { font-size: 60%; display: block; word-spacing: 0.3em; margin-top: -0.5em; }
+    h2 > small { font-size: 60%; display: block; word-spacing: 0.2em; margin-top: -0.5em; }
     p { margin-top: 0.5rem; }
     .example { margin: 1rem 2rem 1rem 0; display: inline-block; vertical-align: top; }
     .a, .b, .c { text-align: center; }
@@ -62,7 +62,7 @@
 
 mhchem is a tool for writing beautiful chemical equations easily.
 
-This is the manual for mhchem's input syntax. It covers version 3.2.x of MathJax/mhchem.
+This is the manual for mhchem's input syntax. It covers version 3.3 of MathJax/mhchem.
 
 mhchem is a third-party extension for [MathJax](https://mathjax.org/).
 For information on how to load the extension and make the `\ce` command available,
@@ -70,7 +70,7 @@ see the [official MathJax docs](http://docs.mathjax.org/en/latest/configuration.
 In short, use this config:
 
     MathJax.Ajax.config.path["mhchem"] =
-      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.2.0";
+      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0";
     MathJax.Hub.Config({
       TeX: {
         extensions: ["[mhchem]/mhchem.js"]
