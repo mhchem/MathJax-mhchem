@@ -1511,7 +1511,13 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
               // arrows that cannot stretch correctly yet, https://github.com/mathjax/MathJax/issues/1491
               arrow = "\\long"+arrow;
               if (b6.rd) { arrow = "\\overset{"+b6.rd+"}{"+arrow+"}"; }
-              if (b6.rq) { arrow = "\\underset{\\lower7mu{"+b6.rq+"}}{"+arrow+"}"; }
+              if (b6.rq) {
+                if (buf.r === "<-->") {
+                  arrow = "\\underset{\\lower2mu{"+b6.rq+"}}{"+arrow+"}";
+                } else {
+                  arrow = "\\underset{\\lower6mu{"+b6.rq+"}}{"+arrow+"}";  // align with ->[][under]
+                }
+              }
               arrow = " {}\\mathrel{"+arrow+"}{} ";
             } else {
               if (b6.rq) { arrow += "[{"+b6.rq+"}]"; }
@@ -1705,7 +1711,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
       longrightleftharpoons: ["Macro", "\\stackrel{\\textstyle{-}\\!\\!{\\rightharpoonup}}{\\smash{{\\leftharpoondown}\\!\\!{-}}}"],
       longRightleftharpoons: ["Macro", "\\stackrel{\\textstyle{-}\\!\\!{\\rightharpoonup}}{\\smash{\\leftharpoondown}}"],
       longLeftrightharpoons: ["Macro", "\\stackrel{\\textstyle\\vphantom{{-}}{\\rightharpoonup}}{\\smash{{\\leftharpoondown}\\!\\!{-}}}"],
-      longleftrightarrows:   ["Macro", "\\stackrel{\\longrightarrow}{\\smash{\\longleftarrow}\\Rule{0px}{.25em}{0px}}"],
+      longleftrightarrows:   ["Macro", "\\raise-3mu{\\stackrel{\\longrightarrow}{\\raise2mu{\\smash{\\longleftarrow}}}}"],
 
       //
       //  Needed for \bond for the ~ forms
