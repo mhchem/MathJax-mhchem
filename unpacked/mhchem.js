@@ -1709,9 +1709,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
 
       //
       //  Needed for \bond for the ~ forms
-      //  Not perfectly aligned when zoomed in, but on 100%
+      //  The 2.56mu distance below is correct for the MathJax Main-Regular font. It raises a
+      //  \tiny hyphen-minus, U+002D, to be centered on the math axis.
+      //  Had we been raising the math minus, U+2212, the distance would been 2mu.
+      //  And of course MathJax allows other fonts, which will introduce small mis-alignments.
       //
-      tripledash: ["Macro", "\\vphantom{-}\\raise2mu{\\kern2mu\\tiny\\text{-}\\kern1mu\\text{-}\\kern1mu\\text{-}\\kern2mu}"]
+      tripledash: ["Macro", "\\vphantom{-}\\raise2.56mu{\\kern2mu\\tiny\\text{-}\\kern1mu\\text{-}\\kern1mu\\text{-}\\kern2mu}"]
     },
   }, null, true);
 
