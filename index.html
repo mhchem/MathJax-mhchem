@@ -50,7 +50,7 @@
     .footer { margin-top: 2rem; text-align: center; color: #ccc; }
     .hidden { display: none; }
   </style>
-  <title>MathJax/mhchem Manual</title>
+  <title>MathJax|KaTeX/mhchem Manual</title>
 </head>
 <body>
   <div class="hidden">$\definecolor{example}{RGB}{163,62,0}$</div>
@@ -58,16 +58,18 @@
   <div id="md">Please ensure Internet access and enable JavaScript.</div>
   <textarea id="ta" class="hidden">
 
-# MathJax/mhchem Manual
+# MathJax|KaTeX/mhchem Manual
 
 mhchem is a tool for writing beautiful chemical equations easily.
 
-This is the manual for mhchem's input syntax. It covers version 3.3 of MathJax/mhchem.
+This is the manual for mhchem's input syntax. It covers version 3.3 of MathJax|KaTeX/mhchem.
 
-mhchem is a third-party extension for [MathJax](https://mathjax.org/).
+mhchem is a third-party extension for [MathJax](https://mathjax.org/) or [KaTeX](https://katex.org/).
 For information on how to load the extension and make the `\ce` command available,
-see the [official MathJax docs](http://docs.mathjax.org/en/latest/configuration.html#using-in-line-configuration-options).
-In short, use this config:
+see the [official MathJax docs](http://docs.mathjax.org/en/latest/configuration.html#using-in-line-configuration-options) or [KaTeX docs](https://github.com/KaTeX/KaTeX/blob/master/contrib/mhchem/README.md).
+In short, use this config for MathJax:
+
+<br>
 
     MathJax.Ajax.config.path["mhchem"] =
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0";
@@ -76,6 +78,12 @@ In short, use this config:
         extensions: ["[mhchem]/mhchem.js"]
       }
     });
+    
+or for KaTeX, write this line into your pages’s `<head>`, after the call to `katex.js`:
+
+<br>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mhchem.min.js"></script>
 
 ## Chemical Equations (ce)
 :::: CO2 + C -> 2 CO
@@ -122,7 +130,7 @@ Each arrow can take two optional arguments: one for above and one for below. The
 :::: A ->[H2O] B % chemistry
 :::: A ->[{text above}][{text below}] B % upright text, see below
 :::: A ->[$x$][$x_i$] B % italic math, see below
-Unfortunately, MathJax [cannot stretch](https://github.com/mathjax/MathJax/issues/1491) `<-->`, `<=>`, `<=>>` and `<<=>` arrows properly.
+Unfortunately, MathJax [cannot stretch](https://github.com/mathjax/MathJax/issues/1491) `<-->`, `<=>`, `<=>>` and `<<=>` arrows properly. All the arrows do stretch in LaTeX and KaTeX.
 
 ## Parentheses, Brackets, Braces
 Use parentheses `( )` and brackets `[ ]` normally. Write braces as `\{ \}`.
@@ -148,7 +156,7 @@ Typographical conventions say that variables are typeset in an italic font, whil
 If a more complex term is not properly recognized, you can switch to math mode (= italics) explicitly.
 
 ## Greek Characters
-Just write `\alpha` etc. Typographical conventions say that variables are typeset in an italic font, while other entities (like chemical elements) are typeset in an upright font. In the following examples, the Greek character is *not* a variable that stands for a number, therefore an upright font *should* be used. Unfortunately, MathJax [does not support](https://github.com/mathjax/mathjax-docs/wiki/Non-italic-(upright)-greek-letters) upright lower-case Greek characters.
+Just write `\alpha` etc. Typographical conventions say that variables are typeset in an italic font, while other entities (like chemical elements) are typeset in an upright font. In the following examples, the Greek character is *not* a variable that stands for a number, therefore an upright font *should* be used. Unfortunately, neither MathJax nor KaTeX [support](https://github.com/mathjax/mathjax-docs/wiki/Non-italic-(upright)-greek-letters) upright lower-case Greek characters.
 :::: \mu-Cl
 :::: [Pt(\eta^2-C2H4)Cl3]-
 Spaces after a greek character are ignored. This is standard TeX behavior. Insert `{}` to get the desired output.
@@ -161,7 +169,7 @@ By using `$...$` you can escape to math mode.
 :::: Fe(CN)_{$\frac{6}{2}$}
 :::: X_{$i$}^{$x$}
 :::: X_$i$^$x$
-(With LaTeX/mhchem, there is a difference between `$...$` and `${...}$`. But because MathJax does not have a text font, both inputs will yield identical results for MathJax/mhchem.)
+(With LaTeX/mhchem, there is a difference between `$...$` and `${...}$`. But because neither MathJax nor KaTeX have a text font, both inputs will yield identical results for MathJax|KaTeX/mhchem.)
 
 ## Italic Text
 With the same mechanism you can mimic an italic text font.
@@ -232,7 +240,7 @@ mhchem tries to differentiate whether `\ce{-}` should be a bond, a charge or a h
 :::: Hg^2+ ->[I-]  $\underset{\mathrm{red}}{\ce{HgI2}}$  ->[I-]  $\underset{\mathrm{red}}{\ce{[Hg^{II}I4]^2-}}$
 
 <a name="pu"></a>
-## Physical Units (pu) <small>(MathJax only, not for LaTeX/mhchem)</small>
+## Physical Units (pu) <small>(MathJax or KaTeX only, not for LaTeX/mhchem)</small>
 ::::pu 123 kJ
 ::::pu 123 mm2
 There are two conventions regarding the multiplication within units.
@@ -252,7 +260,7 @@ There are four main conventions for writing numbers in scientific notation.
 If you need more control than is offered here, take a look at the siunitx extension.
 
 ## Compatibility with __LaTeX/mhchem__
-Most of these examples work identically for MathJax/mhchem and LaTeX/mhchem. Exceptions are indicated. Also, some edge-cases may render differently. I will try to minimize the differences in the future. But even then, MathJax/mhchem will always be more tolerant of sloppy input (e.g. a missing space) than LaTeX/mhchem.
+Most of these examples work identically for MathJax|KaTeX/mhchem and LaTeX/mhchem. Exceptions are indicated. Also, some edge-cases may render differently. I will try to minimize the differences in the future. But even then, MathJax|KaTeX/mhchem will always be more tolerant of sloppy input (e.g. a missing space) than LaTeX/mhchem.
 
 ## Contact and Support
 If you have a question and cannot find an answer---neither here nor with a web search---then
