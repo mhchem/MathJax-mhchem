@@ -25,9 +25,10 @@
       html { font-size: 140%; }
     }
     body { font-family: 'Alegreya',serif; line-height: 1.4; margin: 0 auto; padding: 1rem 2.5rem 3rem; max-width: 800px; border-left: 1px dashed #e0e0e0; border-right: 1px dashed #e0e0e0; background-color: #fcfcfc; }
+    strong { font-weight: 700; }
     h1 { font-family: 'Alegreya',serif; font-weight: 700; font-size: 180%; margin: 2rem 0 2rem; border-bottom: 1px solid #999;}
     h2 { font-family: 'Alegreya SC',serif; font-weight: 400; font-size: 140%; text-transform: lowercase; margin: 3.5rem 0 1rem; word-spacing: 0.3rem; }
-    h2 > strong { font-family: 'Alegreya',serif; text-transform: none; font-variant: inherit; font-size: 90%; }
+    h2 > strong { font-family: 'Alegreya',serif; font-weight: normal; text-transform: none; font-variant: inherit; font-size: 90%; }
     h2 > small { font-size: 60%; display: block; word-spacing: 0.2em; margin-top: -0.5em; }
     p { margin-top: 0.5rem; }
     .example { margin: 1rem 2rem 1rem 0; display: inline-block; vertical-align: top; }
@@ -50,7 +51,7 @@
     .footer { margin-top: 2rem; text-align: center; color: #ccc; }
     .hidden { display: none; }
   </style>
-  <title>MathJax|KaTeX/mhchem Manual</title>
+  <title>Manual for: mhchem for MathJax, mhchem for KaTeX</title>
 </head>
 <body>
   <div class="hidden">$\definecolor{example}{RGB}{163,62,0}$</div>
@@ -58,18 +59,17 @@
   <div id="md">Please ensure Internet access and enable JavaScript.</div>
   <textarea id="ta" class="hidden">
 
-# MathJax|KaTeX/mhchem Manual
+# mhchem for MathJax <br> mhchem for KaTeX
 
-mhchem is a tool for writing beautiful chemical equations easily.
+*mhchem* is a tool for writing beautiful chemical equations easily.
 
-This is the manual for mhchem's input syntax. It covers version 3.3 of MathJax|KaTeX/mhchem.
+This is the manual for mhchem's input syntax. It covers version 3.3 of both, **mhchem for MathJax** (a third-party extension for [MathJax](https://mathjax.org/)) and **mhchem for KaTeX** (a third-party extension for [KaTeX](https://katex.org/)).
 
-mhchem is a third-party extension for [MathJax](https://mathjax.org/) or [KaTeX](https://katex.org/).
-For information on how to load the extension and make the `\ce` command available,
-see the [official MathJax docs](http://docs.mathjax.org/en/latest/configuration.html#using-in-line-configuration-options) or [KaTeX docs](https://github.com/KaTeX/KaTeX/blob/master/contrib/mhchem/README.md).
-In short, use this config for MathJax:
+## Configuration of MathJax
 
-<br>
+For information on how to make the `\ce` command available,
+see the official [MathJax docs](http://docs.mathjax.org/en/latest/configuration.html#using-in-line-configuration-options).
+In short, use this config to load the extension:
 
     MathJax.Ajax.config.path["mhchem"] =
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0";
@@ -78,10 +78,12 @@ In short, use this config for MathJax:
         extensions: ["[mhchem]/mhchem.js"]
       }
     });
-    
-or for KaTeX, write this line into your pages’s `<head>`, after the call to `katex.js`:
 
-<br>
+## Configuration of KaTeX
+
+For information on how to make the `\ce` command available,
+see the [KaTeX docs](https://github.com/KaTeX/KaTeX/blob/master/contrib/mhchem/README.md).
+Just write this line into your pages's `<head>`, after the call to `katex.js`:
 
     <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mhchem.min.js"></script>
 
@@ -139,12 +141,12 @@ Use parentheses `( )` and brackets `[ ]` normally. Write braces as `\{ \}`.
 For large parentheses, `\left` and `\right` macros need to be in the same math environment, so you might have to put `\ce` into `$` into `\ce`, but that's fine.
 :::: CH4 + 2 $\left( \ce{O2 + 79/21 N2} \right)$
 
-## States of Aggregation <small>(not fully supported by LaTeX/mhchem yet)</small>
+## States of Aggregation <small>(not fully supported for LaTeX yet)</small>
 :::: H2(aq) % IUPAC recommendation
 :::: CO3^2-_{(aq)} % not IUPAC-conform, not ACS-conform
 :::: NaOH(aq,$\infty$)
 
-## Crystal Systems <small>(not fully supported by LaTeX/mhchem yet)</small>
+## Crystal Systems <small>(not fully supported for LaTeX yet)</small>
 :::: ZnS($c$)
 :::: ZnS(\ca$c$) % Circa, tilde
 
@@ -169,7 +171,7 @@ By using `$...$` you can escape to math mode.
 :::: Fe(CN)_{$\frac{6}{2}$}
 :::: X_{$i$}^{$x$}
 :::: X_$i$^$x$
-(With LaTeX/mhchem, there is a difference between `$...$` and `${...}$`. But because neither MathJax nor KaTeX have a text font, both inputs will yield identical results for MathJax|KaTeX/mhchem.)
+(With *mhchem for LaTex* there is a difference between `$...$` and `${...}$`. But because neither MathJax nor KaTeX have a text font, both inputs will yield identical results there.)
 
 ## Italic Text
 With the same mechanism you can mimic an italic text font.
@@ -207,7 +209,7 @@ mhchem tries to differentiate whether `\ce{-}` should be a bond, a charge or a h
 :::: OCO^{.-}
 :::: NO^{(2.)-}
 
-## Kr&ouml;ger-Vink Notation <small>(not supported by LaTeX/mhchem yet)</small>
+## Kr&ouml;ger-Vink Notation <small>(not supported for LaTeX yet)</small>
 :::: Li^x_{Li,1-2x}Mg^._{Li,x}$V$'_{Li,x}Cl^x_{Cl}
 :::: O''_{i,x}
 :::: M^{..}_i
@@ -224,7 +226,7 @@ mhchem tries to differentiate whether `\ce{-}` should be a bond, a charge or a h
 :::: SO4^2- + Ba^2+ -> BaSO4 v
 :::: A v B (v) -> B ^ B (^)
 
-## Other Symbols and Shortcuts <small>(not fully supported by LaTeX/mhchem yet)</small>
+## Other Symbols and Shortcuts <small>(not fully supported for LaTeX yet)</small>
 :::: NO^* % Excited state
 :::: 1s^2-N % Orbitals
 :::: n-Pr
@@ -240,7 +242,7 @@ mhchem tries to differentiate whether `\ce{-}` should be a bond, a charge or a h
 :::: Hg^2+ ->[I-]  $\underset{\mathrm{red}}{\ce{HgI2}}$  ->[I-]  $\underset{\mathrm{red}}{\ce{[Hg^{II}I4]^2-}}$
 
 <a name="pu"></a>
-## Physical Units (pu) <small>(MathJax or KaTeX only, not for LaTeX/mhchem)</small>
+## Physical Units (pu) <small>(MathJax or KaTeX only, not for LaTeX)</small>
 ::::pu 123 kJ
 ::::pu 123 mm2
 There are two conventions regarding the multiplication within units.
@@ -259,8 +261,8 @@ There are four main conventions for writing numbers in scientific notation.
 
 If you need more control than is offered here, take a look at the siunitx extension.
 
-## Compatibility with __LaTeX/mhchem__
-Most of these examples work identically for MathJax|KaTeX/mhchem and LaTeX/mhchem. Exceptions are indicated. Also, some edge-cases may render differently. I will try to minimize the differences in the future. But even then, MathJax|KaTeX/mhchem will always be more tolerant of sloppy input (e.g. a missing space) than LaTeX/mhchem.
+## Compatibility with mhchem for LaTeX
+Most of these examples work identically for *mhchem for MathJax*, *mhchem for KaTeX* and *mhchem and LaTeX*. Exceptions are indicated. Also, some edge-cases may render differently. I will try to minimize the differences in the future. But even then, the MathJax and KaTeX versions will always be more tolerant of sloppy input (e.g. a missing space) than *mhchem for LaTeX*.
 
 ## Contact and Support
 If you have a question and cannot find an answer---neither here nor with a web search---then
