@@ -18,7 +18,7 @@
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>html, body, div, span, h1, h2, h3, h4, h5, h6, p, pre, code, a, b, u, i, em, strong, ol, ul, li, blockquote, textarea { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }</style>
-  <link href="https://fonts.googleapis.com/css?family=Alegreya:400,400i,700|Alegreya+SC:400|Source+Code+Pro:600" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Alegreya:400,400i,700|Alegreya+SC:400|Source+Code+Pro:400,600" rel="stylesheet">
   <style>
     html { background-color: #f7f7f7; }
     @media (min-width: 600px) {
@@ -36,7 +36,9 @@
     .a { padding-left: 1.8rem; }
     .b { color: rgba(163,62,0,1); padding: 0 .25rem; margin: 0.25rem 0 0 0; border-radius: 0.25rem; transition: background-color 3s; }
     body:hover .b { background-color: #f0f0f0; transition: background-color 1s; }
-    code { font-family: 'Source Code Pro', monospace; font-size: 90%; white-space: pre-wrap; padding: 0 0.2rem; }
+    code { font-family: 'Source Code Pro', monospace; font-weight: 700; font-size: 90%; white-space: pre-wrap; padding: 0 0.2rem; }
+    .configuration pre { margin-top: 0.5rem; }
+    .configuration pre > code { font-weight: 400; font-size: 78%; }
     .b code.before, .b code.after { color: #aaa; }
     .c { font-size: 80%; }
     em { font-style: italic; }
@@ -65,6 +67,8 @@
 
 This is the manual for mhchem's input syntax. It covers version 3.3 of both, **mhchem for MathJax** (a third-party extension for [MathJax](https://mathjax.org/)) and **mhchem for KaTeX** (a third-party extension for [KaTeX](https://katex.org/)).
 
+<div class="configuration">
+
 ## Configuration of MathJax
 
 For information on how to make the `\ce` command available,
@@ -86,6 +90,8 @@ see the [KaTeX docs](https://github.com/KaTeX/KaTeX/blob/master/contrib/mhchem/R
 Just write this line into your pages's `<head>`, after the call to `katex.js`:
 
     <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mhchem.min.js"></script>
+
+</div>
 
 ## Chemical Equations (ce)
 :::: CO2 + C -> 2 CO
