@@ -197,7 +197,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
     },
     concatArray: function (a, b) {
       if (b) {
-        if (Array.isArray(b)) {
+        if (Object.prototype.toString.call(b) === "[object Array]") {  // Array.isArray(b)
           for (var iB=0; iB<b.length; iB++) {
             a.push(b[iB]);
           }
@@ -235,14 +235,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
         '(-)(9.,9)(e)(99)': function (input) {
           var m = input.match(/^(\+\-|\+\/\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))?(\((?:[0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))\))?(?:([eE]|\s*(\*|x|\\times|\u00D7)\s*10\^)([+\-]?[0-9]+|\{[+\-]?[0-9]+\}))?/);
           if (m && m[0]) {
-            return { match_: m.splice(1), remainder: input.substr(m[0].length) };
+            return { match_: m.slice(1, 99), remainder: input.substr(m[0].length) };
           }
           return null;
         },
         '(-)(9)^(-9)': function (input) {
           var m = input.match(/^(\+\-|\+\/\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+)?)\^([+\-]?[0-9]+|\{[+\-]?[0-9]+\})/);
           if (m && m[0]) {
-            return { match_: m.splice(1), remainder: input.substr(m[0].length) };
+            return { match_: m.slice(1, 99), remainder: input.substr(m[0].length) };
           }
           return null;
         },
@@ -1190,7 +1190,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
             }
             m[3] = m[4] || m[3];
             if (m[3]) {
-              m[3] = m[3].trim();
+              m[3] = m[3].replace(/^\s|\s$/, m[3]);  // .trim();
               if (m[3] === "e"  ||  m[3].substr(0, 1) === "*") {
                 ret.push({ type_: 'cdot' });
               } else {
@@ -1718,7 +1718,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
       //  Not perfectly aligned when zoomed in, but on 100%
       //
       tripledash: ["Macro", "\\vphantom{-}\\raise2mu{\\kern2mu\\tiny\\text{-}\\kern1mu\\text{-}\\kern1mu\\text{-}\\kern2mu}"]
-    },
+    }
   }, null, true);
 
   if (!MathJax.Extension["TeX/AMSmath"]) {
