@@ -11,7 +11,7 @@
  *  ---------------------------------------------------------------------
  *
  *  Copyright (c) 2011-2015 The MathJax Consortium
- *  Copyright (c) 2015-2018 Martin Hensel
+ *  Copyright (c) 2015-2019 Martin Hensel
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@
 
 
 MathJax.Extension["TeX/mhchem"] = {
-  version: "3.3.0"
+  version: "3.3.1"
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {

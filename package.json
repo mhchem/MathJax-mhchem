@@ -1,7 +1,7 @@
 {
   "name": "mathjax-mhchem",
   "filename": "mhchem.js",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "mhchem extension for MathJax",
   "keywords": [
     "MathJax",
@@ -13,6 +13,9 @@
     "Martin Hensel",
     "The MathJax Consortium"
   ],
+  "maintainers": [
+    "Martin Hensel"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/mhchem/MathJax-mhchem.git"
@@ -20,8 +23,15 @@
   "scripts": {
     "test": "tape tests/*.js"
   },
+  "dependencies": {
+    "mathjax": "^2.7.5",
+    "uglify-js": "^3.4.9"
+  },
+  "peerDependencies": {
+    "mathjax-node": "2.x"
+  },
   "devDependencies": {
-    "tape": "^4.0.3",
-    "request": "^2.74.0"
+    "tape": "^4.9.1",
+    "request": "^2.88.0"
   }
 }
