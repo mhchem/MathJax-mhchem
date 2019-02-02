@@ -1,9 +1,9 @@
 <!doctype html>
 <html>
 <head>
-  <script src="https://cdn.jsdelivr.net/markdown-it/7.0.0/markdown-it.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@8.4.2/dist/markdown-it.min.js"></script>
   <script type="text/x-mathjax-config">
-    MathJax.Ajax.config.path["mhchem"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0";
+    MathJax.Ajax.config.path["mhchem"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.1";
     MathJax.Hub.Config({
       tex2jax: {
         ignoreClass: "tex2jax_ignore",
@@ -76,7 +76,7 @@ see the official [MathJax docs](http://docs.mathjax.org/en/latest/configuration.
 In short, use this config to load the extension:
 
     MathJax.Ajax.config.path["mhchem"] =
-      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0";
+      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.1";
     MathJax.Hub.Config({
       TeX: {
         extensions: ["[mhchem]/mhchem.js"]
@@ -306,12 +306,12 @@ If you have a question and cannot find an answer---neither here nor with a web s
     a = a.replace(':testdrive:', '<div id="demo" class="hidden"><div id="output">$\\color{example}\\ce{H2O}$</div><textarea id="input">\\ce{H2O}</textarea></div>');
     document.getElementById('md').innerHTML = a;
 
-    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"md"]);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, "md"]);
     
     document.getElementById('demo').classList.remove('hidden');
     document.getElementById('input').addEventListener('input', function (){
       document.getElementById('output').innerHTML = '$\\color{example}'+this.value.replace(/^\$|\$$/g,'')+'$';
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub,'output']);
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'output']);
     });
   };
   //]]>
