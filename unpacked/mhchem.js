@@ -1190,7 +1190,6 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
             }
             m[3] = m[4] || m[3];
             if (m[3]) {
-              m[3] = m[3].replace(/^\s|\s$/, m[3]);  // .trim();
               if (m[3] === "e"  ||  m[3].substr(0, 1) === "*") {
                 ret.push({ type_: 'cdot' });
               } else {
