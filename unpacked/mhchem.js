@@ -233,16 +233,16 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
         '-9.,9': /^[+\-]?(?:[0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))/,
         '-9.,9 no missing 0': /^[+\-]?[0-9]+(?:[.,][0-9]+)?/,
         '(-)(9.,9)(e)(99)': function (input) {
-          var m = input.match(/^(\+\-|\+\/\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))?(\((?:[0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))\))?(?:([eE]|\s*(\*|x|\\times|\u00D7)\s*10\^)([+\-]?[0-9]+|\{[+\-]?[0-9]+\}))?/);
+          var m = input.match(/^(\+\-|\+\/\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))?(\((?:[0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+))\))?(?:(?:([eE])|\s*(\*|x|\\times|\u00D7)\s*10\^)([+\-]?[0-9]+|\{[+\-]?[0-9]+\}))?/);
           if (m && m[0]) {
-            return { match_: m.slice(1, 99), remainder: input.substr(m[0].length) };
+            return { match_: m.slice(1), remainder: input.substr(m[0].length) };
           }
           return null;
         },
         '(-)(9)^(-9)': function (input) {
           var m = input.match(/^(\+\-|\+\/\-|\+|\-|\\pm\s?)?([0-9]+(?:[,.][0-9]+)?|[0-9]*(?:\.[0-9]+)?)\^([+\-]?[0-9]+|\{[+\-]?[0-9]+\})/);
           if (m && m[0]) {
-            return { match_: m.slice(1, 99), remainder: input.substr(m[0].length) };
+            return { match_: m.slice(1), remainder: input.substr(m[0].length) };
           }
           return null;
         },
@@ -1179,26 +1179,24 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
           } else if (m[0]) {
             ret.push(m[0]);
           }
-          if (m[1]) {
+          if (m[1]) {  // 1.2
             mhchemParser.concatArray(ret, mhchemParser.go(m[1], 'pu-9,9'));
             if (m[2]) {
-              if (m[2].match(/[,.]/)) {
+              if (m[2].match(/[,.]/)) {  // 1.23456(0.01111)
                 mhchemParser.concatArray(ret, mhchemParser.go(m[2], 'pu-9,9'));
-              } else {
+              } else {  // 1.23456(1111)  - without spacings
                 ret.push(m[2]);
               }
             }
-            m[3] = m[4] || m[3];
-            if (m[3]) {
-              m[3] = m[3].replace(/^\s|\s$/, m[3]);  // .trim();
-              if (m[3] === "e"  ||  m[3].substr(0, 1) === "*") {
+            if (m[3] || m[4]) {  // 1.2e7  1.2x10^7
+              if (m[3] === "e"  ||  m[4] === "*") {
                 ret.push({ type_: 'cdot' });
               } else {
                 ret.push({ type_: 'times' });
               }
             }
           }
-          if (m[3]) {
+          if (m[5]) {  // 10^7
             ret.push("10^{"+m[5]+"}");
           }
           return ret;
