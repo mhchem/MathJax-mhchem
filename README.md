@@ -20,7 +20,7 @@ see the [official MathJax docs](http://docs.mathjax.org/en/latest/configuration.
 In short, use this config:
 
     MathJax.Ajax.config.path["mhchem"] =
-      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.1";
+      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.2";
     MathJax.Hub.Config({
       TeX: {
         extensions: ["[mhchem]/mhchem.js"]
