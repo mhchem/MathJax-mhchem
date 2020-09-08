@@ -37,8 +37,6 @@
     .b { color: rgba(163,62,0,1); padding: 0 .25rem; margin: 0.25rem 0 0 0; border-radius: 0.25rem; transition: background-color 3s; }
     body:hover .b { background-color: #f0f0f0; transition: background-color 1s; }
     code { font-family: 'Source Code Pro', monospace; font-weight: 700; font-size: 90%; white-space: pre-wrap; padding: 0 0.2rem; }
-    .configuration pre { margin-top: 0.5rem; }
-    .configuration pre > code { font-weight: 400; font-size: 78%; }
     .b code.before, .b code.after { color: #aaa; }
     .c { font-size: 80%; }
     em { font-style: italic; }
@@ -67,31 +65,19 @@
 
 This is the manual for mhchem's input syntax. It covers version 3.3 of both, **mhchem for MathJax** (a third-party extension for [MathJax](https://mathjax.org/)) and **mhchem for KaTeX** (a third-party extension for [KaTeX](https://katex.org/)).
 
-<div class="configuration">
-
 ## Configuration of MathJax
 
-For information on how to make the `\ce` command available,
-see the official [MathJax docs](http://docs.mathjax.org/en/latest/configuration.html#using-in-line-configuration-options).
-In short, use this config to load the extension:
+For how to make the `\ce` command available in MathJax,
+take a look at this [JS Bin](https://jsbin.com/?html=%3C%21DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22utf-8%22%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%22%3E%0A%20%20%3Ctitle%3EMathJax%20%2B%20mhchem%20example%3C%2Ftitle%3E%0A%20%20%3Cscript%3E%0A%20%20%20%20window.MathJax%20%3D%20%7B%0A%20%20%20%20%20%20tex%3A%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20inlineMath%3A%20%5B%5B%27%24%27%2C%20%27%24%27%5D%2C%20%5B%27%5C%5C%28%27%2C%20%27%5C%5C%29%27%5D%5D%2C%0A%20%20%20%20%20%20%20%20packages%3A%20%7B%27%5B%2B%5D%27%3A%20%5B%27mhchem%27%5D%7D%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20loader%3A%20%7Bload%3A%20%5B%27%5Btex%5D%2Fmhchem%27%5D%7D%2C%0A%20%20%20%20%7D%3B%0A%20%20%3C%2Fscript%3E%0A%20%20%3Cscript%20src%3D%22https%3A%2F%2Fpolyfill.io%2Fv3%2Fpolyfill.min.js%3Ffeatures%3Des6%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%20id%3D%22MathJax-script%22%20async%20src%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fmathjax%403%2Fes5%2Ftex-mml-chtml.js%22%3E%3C%2Fscript%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%20%20%5C%28%5Cce%7B2H%20%2B%20O%20-%3E%20H2O%7D%5C%29%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E&live) and see the [MathJax documentation](http://docs.mathjax.org/en/latest/input/tex/extensions/mhchem.html).
 
-    MathJax.Ajax.config.path["mhchem"] =
-      "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.2";
-    MathJax.Hub.Config({
-      TeX: {
-        extensions: ["[mhchem]/mhchem.js"]
-      }
-    });
+If the `require` extension is loaded, you can also write `\require{mhchem}` in a TeX expression.
 
 ## Configuration of KaTeX
 
-For information on how to make the `\ce` command available,
-see the [KaTeX docs](https://github.com/KaTeX/KaTeX/blob/master/contrib/mhchem/README.md).
-Just write this line into your pages's `<head>`, after the call to `katex.js`:
+For how to make the `\ce` command available in KaTeX,
+take a look at this [JS Bin](https://jsbin.com/?html=%3C%21DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22utf-8%22%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%22%3E%0A%20%20%3Ctitle%3EKaTeX%20%2B%20mhchem%20example%3C%2Ftitle%3E%0A%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fkatex%400.12.0%2Fdist%2Fkatex.min.css%22%20integrity%3D%22sha384-AfEj0r4%2FOFrOo5t7NnNe46zW%2FtFgW6x%2FbCJG8FqQCEo3%2BAro6EYUG4%2BcU%2BKJWu%2FX%22%20crossorigin%3D%22anonymous%22%3E%0A%20%20%3Cscript%20defer%20src%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fkatex%400.12.0%2Fdist%2Fkatex.min.js%22%20integrity%3D%22sha384-g7c%2BJr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI%2BsEnkvrMWph2EDg4%22%20crossorigin%3D%22anonymous%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%20defer%20src%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fkatex%400.12.0%2Fdist%2Fcontrib%2Fmhchem.min.js%22%20integrity%3D%22sha384-5gCAXJ0ZgozlShOzzT0OWArn7yCPGWVIvgo%2BBAd8NUKbCmulrJiQuCVR9cHlPHeG%22%20crossorigin%3D%22anonymous%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%20defer%20src%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fkatex%400.12.0%2Fdist%2Fcontrib%2Fauto-render.min.js%22%20integrity%3D%22sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC%2BPt2cHqMaRhXVrursRwvLnLaebdGIlYNa%22%20crossorigin%3D%22anonymous%22%0A%20%20%20%20%20%20onload%3D%22renderMathInElement%28document.body%29%3B%22%3E%3C%2Fscript%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%20%20%5C%28%5Cce%7B2H%20%2B%20O%20-%3E%20H2O%7D%5C%29%3Cbr%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E&live) and
+see the [KaTeX documentation](https://github.com/KaTeX/KaTeX/blob/master/contrib/mhchem/README.md).
 
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/mhchem.min.js"></script>
-
-</div>
 
 ## Chemical Equations (ce)
 :::: CO2 + C -> 2 CO
