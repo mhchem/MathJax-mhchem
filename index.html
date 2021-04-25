@@ -2,20 +2,17 @@
 <html>
 <head>
   <script src="https://cdn.jsdelivr.net/npm/markdown-it@11.0.0/dist/markdown-it.min.js"></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Ajax.config.path["mhchem"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.2";
-    MathJax.Hub.Config({
-      tex2jax: {
-        ignoreClass: "tex2jax_ignore",
-        inlineMath: [["$","$"]]
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        packages: {'[+]': ['mhchem']}
       },
-      TeX: {
-        extensions: ["[mhchem]/mhchem.js", "color.js"],
-        noErrors: { disabled: true }
-      }
-    });
+      loader: { load: ['[tex]/mhchem'] },
+      startup: { typeset: true }
+    };
   </script>
-  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>html, body, div, span, h1, h2, h3, h4, h5, h6, p, pre, code, a, b, u, i, em, strong, ol, ul, li, blockquote, textarea { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }</style>
   <link href="https://fonts.googleapis.com/css?family=Alegreya:400,400i,700|Alegreya+SC:400|Source+Code+Pro:400,600" rel="stylesheet">
@@ -302,12 +299,16 @@ If you have a question and cannot find an answer---neither here nor with a web s
     a = a.replace(':testdrive:', '<div id="demo" class="hidden"><div id="output">$\\color{example}\\ce{H2O}$</div><textarea id="input">\\ce{H2O}</textarea></div>');
     document.getElementById('md').innerHTML = a;
 
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, "md"]);
+    var promise = MathJax.typesetPromise([document.getElementById('md')]);
     
     document.getElementById('demo').classList.remove('hidden');
-    document.getElementById('input').addEventListener('input', function (){
-      document.getElementById('output').innerHTML = '$\\color{example}'+this.value.replace(/^\$|\$$/g,'')+'$';
-      MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'output']);
+    document.getElementById('input').addEventListener('input', function () {
+      var that = this;
+      var output = document.getElementById('output')
+      promise = promise.then(function () {
+        output.innerHTML = '$\\color{example}' + that.value.replace(/^\$|\$$/g,'') + '$';
+        return MathJax.typesetPromise([output]);
+      });
     });
   };
   </script>
